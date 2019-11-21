@@ -1,0 +1,225 @@
+; Thu Nov 21 15:58:15 CET 2019
+; 
+;+ (version "3.5")
+;+ (build "Build 663")
+
+([proyecto_Class0] of  Epic
+
+	(Language Medium)
+	(Popularity Best_Seller)
+	(Title "The way of Kings")
+	(Year 2010))
+
+([proyecto_Class1] of  Epic
+
+	(Language Hard)
+	(Popularity Best_Seller)
+	(Title "Game of Thrones")
+	(Year 1996))
+
+([proyecto_Class10000] of  Adventure
+
+	(Language Easy)
+	(Popularity Best_Seller)
+	(Title "The Lion, the Witch and the Wardrobe")
+	(Year 1984))
+
+([proyecto_Class10001] of  Adventure
+
+	(Language Medium)
+	(Popularity Normal)
+	(Title "A Bridge of Birds")
+	(Year 1984))
+
+([proyecto_Class10002] of  Sword_and_Sorcery
+
+	(Language Medium)
+	(Popularity Normal)
+	(Title "Swords and Deviltry")
+	(Year 1970))
+
+([proyecto_Class10003] of  Romantic
+
+	(Language Medium)
+	(Popularity Normal)
+	(Title "Magic Casement")
+	(Year 1990))
+
+([proyecto_Class10004] of  Epic
+
+	(Language Medium)
+	(Popularity Popular)
+	(Title "Hawkwood's Voyage")
+	(Year 1995))
+
+([proyecto_Class10005] of  Epic
+
+	(Language Hard)
+	(Popularity Best_Seller)
+	(Title "The Lord of Rings")
+	(Year 1954))
+
+([proyecto_Class10006] of  Spooky
+
+	(Language Hard)
+	(Popularity Best_Seller)
+	(Title "The Dark Tower")
+	(Year 2004))
+
+([proyecto_Class10007] of  Spooky
+
+	(Language Easy)
+	(Popularity Non-Popular)
+	(Title "The Outsider")
+	(Year 1926))
+
+([proyecto_Class10008] of  Spooky
+
+	(Language Easy)
+	(Popularity Non-Popular)
+	(Title "Bag of Bones")
+	(Year 1998))
+
+([proyecto_Class2] of  Epic
+
+	(Language Easy)
+	(Popularity Popular)
+	(Title "Mistborn")
+	(Year 2006))
+
+([proyecto_Class20051] of  Dark
+
+	(Language Hard)
+	(Popularity Popular)
+	(Title "The Call of Chutulu")
+	(Year 1928))
+
+([proyecto_Class20052] of  Dark
+
+	(Language Medium)
+	(Popularity Normal)
+	(Title "A carnivores inquiry")
+	(Year 2004))
+
+([proyecto_Class20053] of  Dark
+
+	(Language Medium)
+	(Popularity Normal)
+	(Title "The seven deadly Sins")
+	(Year 2010))
+
+([proyecto_Class20054] of  Science+Fiction
+
+	(Language Hard)
+	(Popularity Popular)
+	(Title "Morning Star")
+	(Year 2016))
+
+([proyecto_Class20055] of  Science+Fiction
+
+	(Language Easy)
+	(Popularity Non-Popular)
+	(Title "Hvadata?")
+	(Year 1986))
+
+([proyecto_Class20056] of  Science+Fiction
+
+	(Language Easy)
+	(Popularity Popular)
+	(Title "Red Planet")
+	(Year 1970))
+
+([proyecto_Class20057] of  Fabula
+
+	(Language Easy)
+	(Popularity Non-Popular)
+	(Title "Las 48 fabulas del emperador")
+	(Year 2019))
+
+([proyecto_Class20058] of  Fabula
+
+	(Language Easy)
+	(Popularity Popular)
+	(Title "Fabel of Aesopus")
+	(Year 1485))
+
+([proyecto_Class20059] of  Fabula
+
+	(Language Medium)
+	(Popularity Popular)
+	(Title "Rebeilón en la granja")
+	(Year 1945))
+
+([proyecto_Class20060] of  Magic
+
+	(Language Easy)
+	(Popularity Best_Seller)
+	(Title "Harry Poter")
+	(Year 1997))
+
+([proyecto_Class20061] of  Magic
+
+	(Language Hard)
+	(Popularity Best_Seller)
+	(Title "100 years of Solitude")
+	(Year 1982))
+
+([proyecto_Class20062] of  Magic
+
+	(Language Medium)
+	(Popularity Non-Popular)
+	(Title "Circus")
+	(Year 2018))
+
+([proyecto_Class20063] of  Adventure
+
+	(Language Medium)
+	(Popularity Best_Seller)
+	(Title "Le Tour du monde en quatre-vingts jours")
+	(Year 1954))
+
+([proyecto_Class20064] of  Adventure
+
+	(Language Medium)
+	(Popularity Best_Seller)
+	(Title "El capitán Alatriste")
+	(Year 1996))
+
+([proyecto_Class20067] of  Romantic
+
+	(Language Medium)
+	(Popularity Popular)
+	(Title "Orgullo y prejuicio")
+	(Year 2006))
+
+([proyecto_Class20068] of  Romantic
+
+	(Language Medium)
+	(Popularity Normal)
+	(Title "Toda la verdad de mis mentiras")
+	(Year 2019))
+
+([proyecto_Class20069] of  Romantic
+
+	(Language Medium)
+	(Popularity Popular)
+	(Title "Los puentes de Madison")
+	(Year 1995))
+
+([proyecto_Class20070] of  Sword_and_Sorcery
+
+	(Language Easy)
+	(Popularity Best_Seller)
+	(Title "Eragon")
+	(Year 2002))
+
+([proyecto_Class3] of  Epic
+
+	(Language Hard)
+	(Popularity Non-Popular)
+	(Title "Sword of Shannara")
+	(Year 1977))
+
+([proyecto_Class6] of  %3APAL-CONSTRAINT
+
+	(%3APAL-STATEMENT "(Predicate)"))
