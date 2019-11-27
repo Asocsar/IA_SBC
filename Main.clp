@@ -172,9 +172,7 @@
        else FALSE))
 
 (deffunction filter_books ()
-  ;(bind $?instancias  (find-all-instances ((?inst Libro_Fantasia)) ))
   (bind ?f (find-all-facts ((?l likes)) TRUE))
-  ;(printout t ?f crlf)
   (bind $?r (fact-slot-value (nth$ 1 ?f) id))
 	(bind ?aux "")
   (bind ?j 2)
@@ -183,12 +181,11 @@
   do
     (bind ?v (fact-slot-value (nth$ ?j ?f) id))
     (bind $?r ?r ?v)
-    ;(printout t ?r crlf)
     (bind ?j (+ ?j 1))
   )
-  (do-for-all-instances ((?inst Libro_Fantasia)) (or (member ?inst:Language ?r)
-    (member ?inst:Popularity ?r) (member (class ?inst) ?r) ;(member ?inst:Year ?r)
-    ) (if (eq ?aux ?ret) then
+  (do-for-all-instances ((?inst Libro_Fantasia)) (and (or (member ?inst:Language ?r) (member None_Language ?r))
+    (or (member ?inst:Popularity ?r) (member None_popular ?r)) ) ;(member (class ?inst) ?r) ;(member ?inst:Year ?r)
+     (if (eq ?aux ?ret) then
 				(bind $?ret ?inst)
 				else
 				(bind $?ret ?ret ?inst)))
@@ -210,15 +207,19 @@
 
 
 
-  ;(deffunction function ($?rules)
-  ;() )
 
 
   (defrule exit ""
     (final $?)
-    ;(eq length$ (likes (id ?k)) 3)
     =>
-    (printout t (filter_books))
+    (bind ?result (filter_books))
+		(bind ?i 1)
+		(while (<= ?i (length$ ?result))
+		do
+		(bind ?inst (nth$ ?i ?result))
+		(printout t (send ?inst get-Title) crlf)
+		(bind ?i (+ ?i 1))
+		)
     (printout t crlf crlf)
     (printout t "Sortida")
     (printout t crlf crlf))
@@ -232,11 +233,43 @@
     (initial $?)
     =>
     (assert (initial))
-    (bind ?response (ask-question "What difficulty do you prefer? (Easy/Medium/Hard) " Easy Medium Hard))
-    (assert(likes (id ?response)))
-    (while (yes-or-no-p "Do you have any other preferences? (yes/no)")
+    (bind ?response (ask-question "What difficulty do you prefer? (Easy/Medium/Hard/None) " Easy Medium Hard None))
+		(if (eq ?response None) then
+			(assert(likes (id None_Language)))
+			else
+			(assert(likes (id ?response)))
+		)
+    (while (and (not (eq ?response None)) (yes-or-no-p "Do you have any other preferences? (yes/no)"))
     do
-    (bind ?response (ask-question "What difficulty do you prefer? (Easy/Medium/Hard)" Easy Medium Hard))
-    (assert(likes (id ?response)))
+    (bind ?response (ask-question "What difficulty do you prefer? (Easy/Medium/Hard/None)" Easy Medium Hard None))
+		(if (eq ?response None) then
+			(assert(likes (id None_popular)))
+			else
+			(assert(likes (id ?response)))
+		)
     )
-    (assert (final)))
+    (assert (popular)))
+
+
+
+		(defrule Popularity ""
+	   (popular $?)
+	    =>
+	    (assert (initial))
+	    (bind ?response (ask-question "Do you want a famous book ? (Popular/Critic/Best_Seller/Normal/Non-Popular/None) " Popular Critic Best_Seller Normal Non-Popular None))
+			(if (eq ?response None) then
+				(assert(likes (id None_popular)))
+				else
+				(assert(likes (id ?response)))
+			)
+
+	    (while (and (not (eq ?response None)) (yes-or-no-p "Do you have any other preferences? (yes/no)"))
+	    do
+	    (bind ?response (ask-question "Do you want a famous book ? (Popular/Critic/Best_Seller/Normal/Non-Popular/None) " Popular Critic Best_Seller Normal Non-Popular None))
+			(if (eq ?response None) then
+				(assert(likes (id None_popular)))
+				else
+				(assert(likes (id ?response)))
+			)
+	    )
+	    (assert (final)))
