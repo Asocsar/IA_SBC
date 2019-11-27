@@ -196,7 +196,7 @@
 ;;;****************************
 
 (defrule system-banner ""
-  (declare (salience 10))
+	(not (initial ?))
   =>
   (load-instances "Instances.pins")
   (assert (initial))
@@ -210,7 +210,8 @@
 
 
   (defrule exit ""
-    (final $?)
+    (gustados $?)
+		(populares $?)
     =>
     (bind ?result (filter_books))
 		(bind ?i 1)
@@ -232,7 +233,6 @@
   (defrule start_question ""
     (initial $?)
     =>
-    (assert (initial))
     (bind ?response (ask-question "What difficulty do you prefer? (Easy/Medium/Hard/None) " Easy Medium Hard None))
 		(if (eq ?response None) then
 			(assert(likes (id None_Language)))
@@ -248,12 +248,12 @@
 			(assert(likes (id ?response)))
 		)
     )
-    (assert (popular)))
+    (assert (gustados)))
 
 
 
 		(defrule Popularity ""
-	   (popular $?)
+	   (initial $?)
 	    =>
 	    (assert (initial))
 	    (bind ?response (ask-question "Do you want a famous book ? (Popular/Critic/Best_Seller/Normal/Non-Popular/None) " Popular Critic Best_Seller Normal Non-Popular None))
@@ -272,4 +272,4 @@
 				(assert(likes (id ?response)))
 			)
 	    )
-	    (assert (final)))
+	    (assert (populares)))
