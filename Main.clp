@@ -147,7 +147,7 @@
 ;;;* ESTRUCTURAS *
 ;;;****************************
 
-(deftemplate likes (slot id (type STRING)))
+(deftemplate likes (slot id (type SYMBOL)))
 
 ;;;****************************
 ;;;* FUNCTIONS *
@@ -177,6 +177,7 @@
   (printout t ?f crlf)
   (bind $?r (fact-slot-value (nth$ 1 ?f) id))
   (bind ?j 2)
+	(bind $?ret "")
   (while (<= ?j (length$ ?f))
   do
     (bind ?v (fact-slot-value (nth$ ?j ?f) id))
