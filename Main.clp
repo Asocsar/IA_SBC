@@ -174,21 +174,24 @@
 (deffunction filter_books ()
   ;(bind $?instancias  (find-all-instances ((?inst Libro_Fantasia)) ))
   (bind ?f (find-all-facts ((?l likes)) TRUE))
-  (printout t ?f crlf)
+  ;(printout t ?f crlf)
   (bind $?r (fact-slot-value (nth$ 1 ?f) id))
+	(bind ?aux "")
   (bind ?j 2)
-	(bind $?ret "")
+	(bind $?ret ?aux)
   (while (<= ?j (length$ ?f))
   do
     (bind ?v (fact-slot-value (nth$ ?j ?f) id))
     (bind $?r ?r ?v)
-    (printout t ?r crlf)
+    ;(printout t ?r crlf)
     (bind ?j (+ ?j 1))
   )
   (do-for-all-instances ((?inst Libro_Fantasia)) (or (member ?inst:Language ?r)
-    (member ?inst:Popularity ?r) (member (class ?inst) ?r)
-    ;(member ?inst:Year ?r)
-    ) (bind $?ret ?ret ?inst))
+    (member ?inst:Popularity ?r) (member (class ?inst) ?r) ;(member ?inst:Year ?r)
+    ) (if (eq ?aux ?ret) then
+				(bind $?ret ?inst)
+				else
+				(bind $?ret ?ret ?inst)))
     ?ret)
 
 ;;;****************************
