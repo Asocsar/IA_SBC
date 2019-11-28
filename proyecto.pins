@@ -1,4 +1,4 @@
-; Sun Nov 24 10:16:23 CET 2019
+; Thu Nov 28 11:18:11 CET 2019
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -6,6 +6,7 @@
 ([proyecto_Class0] of  Epic
 
 	(Language Medium)
+	(Pages 1007)
 	(Popularity Best_Seller)
 	(Title "The way of Kings")
 	(Writer [proyecto_Class20010])
@@ -14,14 +15,16 @@
 ([proyecto_Class1] of  Epic
 
 	(Language Hard)
+	(Pages 694)
 	(Popularity Best_Seller)
-	(Title "Game of Thrones")
+	(Title "A Game of Thrones")
 	(Writer [proyecto_Class20011])
 	(Year 1996))
 
 ([proyecto_Class10000] of  Adventure
 
 	(Language Easy)
+	(Pages 224)
 	(Popularity Best_Seller)
 	(Title "The Lion, the Witch and the Wardrobe")
 	(Writer [proyecto_Class20000])
@@ -30,6 +33,7 @@
 ([proyecto_Class10001] of  Adventure
 
 	(Language Medium)
+	(Pages 652)
 	(Popularity Normal)
 	(Title "A Bridge of Birds")
 	(Writer [proyecto_Class20002])
@@ -38,6 +42,7 @@
 ([proyecto_Class10002] of  Sword_and_Sorcery
 
 	(Language Medium)
+	(Pages 254)
 	(Popularity Normal)
 	(Title "Swords and Deviltry")
 	(Writer [proyecto_Class20031])
@@ -46,6 +51,7 @@
 ([proyecto_Class10003] of  Romantic
 
 	(Language Medium)
+	(Pages 307)
 	(Popularity Normal)
 	(Title "Magic Casement")
 	(Writer [proyecto_Class20023])
@@ -54,6 +60,7 @@
 ([proyecto_Class10004] of  Epic
 
 	(Language Medium)
+	(Pages 384)
 	(Popularity Popular)
 	(Title "Hawkwood's Voyage")
 	(Writer [proyecto_Class20012])
@@ -62,14 +69,16 @@
 ([proyecto_Class10005] of  Epic
 
 	(Language Hard)
+	(Pages 423)
 	(Popularity Best_Seller)
-	(Title "The Lord of Rings")
+	(Title "The Fellowship of the Ring")
 	(Writer [proyecto_Class20013])
 	(Year 1954))
 
 ([proyecto_Class10006] of  Spooky
 
 	(Language Hard)
+	(Pages 4250)
 	(Popularity Best_Seller)
 	(Title "The Dark Tower")
 	(Writer [proyecto_Class20029])
@@ -77,7 +86,8 @@
 
 ([proyecto_Class10007] of  Spooky
 
-	(Language Easy)
+	(Language Medium)
+	(Pages 560)
 	(Popularity Non-Popular)
 	(Title "The Outsider")
 	(Writer [proyecto_Class20029])
@@ -85,7 +95,8 @@
 
 ([proyecto_Class10008] of  Spooky
 
-	(Language Easy)
+	(Language Medium)
+	(Pages 529)
 	(Popularity Non-Popular)
 	(Title "Bag of Bones")
 	(Writer [proyecto_Class20029])
@@ -94,8 +105,9 @@
 ([proyecto_Class2] of  Epic
 
 	(Language Easy)
+	(Pages 541)
 	(Popularity Popular)
-	(Title "Mistborn")
+	(Title "Mistborn: The Final Empire")
 	(Writer [proyecto_Class20014])
 	(Year 2006))
 
@@ -195,7 +207,7 @@
 	(LIbro [proyecto_Class0])
 	(Name "Brandon")
 	(Nationality EU)
-	(Surname "Sanders"))
+	(Surname "Sanderson"))
 
 ([proyecto_Class20011] of  Autor
 
@@ -383,14 +395,16 @@
 ([proyecto_Class20051] of  Dark
 
 	(Language Hard)
+	(Pages 643)
 	(Popularity Popular)
-	(Title "The Call of Chutulu")
+	(Title "The Call of Cthulhu")
 	(Writer [proyecto_Class20008])
 	(Year 1928))
 
 ([proyecto_Class20052] of  Dark
 
 	(Language Medium)
+	(Pages 304)
 	(Popularity Normal)
 	(Title "A carnivores inquiry")
 	(Writer [proyecto_Class20009])
@@ -399,6 +413,7 @@
 ([proyecto_Class20053] of  Dark
 
 	(Language Medium)
+	(Pages 192)
 	(Popularity Normal)
 	(Title "The seven deadly Sins")
 	(Writer [proyecto_Class40015])
@@ -407,6 +422,7 @@
 ([proyecto_Class20054] of  Science+Fiction
 
 	(Language Hard)
+	(Pages 518)
 	(Popularity Popular)
 	(Title "Morning Star")
 	(Writer [proyecto_Class20027])
@@ -415,6 +431,7 @@
 ([proyecto_Class20055] of  Science+Fiction
 
 	(Language Easy)
+	(Pages 155)
 	(Popularity Non-Popular)
 	(Title "Hvadata?")
 	(Writer [proyecto_Class20028])
@@ -423,8 +440,9 @@
 ([proyecto_Class20056] of  Science+Fiction
 
 	(Language Easy)
+	(Pages 158)
 	(Popularity Popular)
-	(Title "Red Planet")
+	(Title "Rod planet")
 	(Writer
 		[proyecto_Class20028]
 		[proyecto_Class20030])
@@ -433,6 +451,7 @@
 ([proyecto_Class20057] of  Fabula
 
 	(Language Easy)
+	(Pages 240)
 	(Popularity Non-Popular)
 	(Title "Las 48 fabulas del emperador")
 	(Writer
@@ -443,6 +462,7 @@
 ([proyecto_Class20058] of  Fabula
 
 	(Language Easy)
+	(Pages 725)
 	(Popularity Popular)
 	(Title "Fabel of Aesopus")
 	(Writer [proyecto_Class20018])
@@ -451,6 +471,7 @@
 ([proyecto_Class20059] of  Fabula
 
 	(Language Medium)
+	(Pages 122)
 	(Popularity Popular)
 	(Title "Rebelión en la granja")
 	(Writer [proyecto_Class20019])
@@ -459,6 +480,7 @@
 ([proyecto_Class20060] of  Magic
 
 	(Language Hard)
+	(Pages 4224)
 	(Popularity Best_Seller)
 	(Title "Harry Poter")
 	(Writer [proyecto_Class20020])
@@ -467,6 +489,7 @@
 ([proyecto_Class20061] of  Magic
 
 	(Language Hard)
+	(Pages 448)
 	(Popularity Best_Seller)
 	(Title "100 years of Solitude")
 	(Writer [proyecto_Class20021])
@@ -475,6 +498,7 @@
 ([proyecto_Class20062] of  Magic
 
 	(Language Medium)
+	(Pages 393)
 	(Popularity Non-Popular)
 	(Title "Circus")
 	(Writer [proyecto_Class20022])
@@ -483,6 +507,7 @@
 ([proyecto_Class20063] of  Adventure
 
 	(Language Medium)
+	(Pages 256)
 	(Popularity Best_Seller)
 	(Title "Le Tour du monde en quatre-vingts jours")
 	(Writer [proyecto_Class20006])
@@ -491,6 +516,7 @@
 ([proyecto_Class20064] of  Adventure
 
 	(Language Medium)
+	(Pages 290)
 	(Popularity Best_Seller)
 	(Title "El capitán Alatriste")
 	(Writer [proyecto_Class20007])
@@ -499,6 +525,7 @@
 ([proyecto_Class20067] of  Romantic
 
 	(Language Medium)
+	(Pages 544)
 	(Popularity Popular)
 	(Title "Orgullo y prejuicio")
 	(Writer [proyecto_Class20024])
@@ -507,6 +534,7 @@
 ([proyecto_Class20068] of  Romantic
 
 	(Language Medium)
+	(Pages 512)
 	(Popularity Normal)
 	(Title "Toda la verdad de mis mentiras")
 	(Writer [proyecto_Class20025])
@@ -515,6 +543,7 @@
 ([proyecto_Class20069] of  Romantic
 
 	(Language Medium)
+	(Pages 208)
 	(Popularity Popular)
 	(Title "Los puentes de Madison")
 	(Writer [proyecto_Class20026])
@@ -523,6 +552,7 @@
 ([proyecto_Class20070] of  Sword_and_Sorcery
 
 	(Language Easy)
+	(Pages 544)
 	(Popularity Best_Seller)
 	(Title "Eragon")
 	(Writer [proyecto_Class20032])
@@ -531,6 +561,7 @@
 ([proyecto_Class3] of  Epic
 
 	(Language Hard)
+	(Pages 726)
 	(Popularity Non-Popular)
 	(Title "Sword of Shannara")
 	(Writer [proyecto_Class20015])
@@ -547,6 +578,7 @@
 ([proyecto_Class30001] of  Science+Fiction
 
 	(Language Easy)
+	(Pages 287)
 	(Popularity Best_Seller)
 	(Title "War of the Worlds")
 	(Writer [proyecto_Class30000])
@@ -563,6 +595,7 @@
 ([proyecto_Class40001] of  Superheores
 
 	(Language Easy)
+	(Pages 388)
 	(Popularity Non-Popular)
 	(Title "Tokyo ESP")
 	(Writer [proyecto_Class40000])
@@ -579,6 +612,7 @@
 ([proyecto_Class40003] of  Superheores
 
 	(Language Easy)
+	(Pages 416)
 	(Popularity Best_Seller)
 	(Title "Iron Man")
 	(Writer [proyecto_Class40002])
@@ -595,6 +629,7 @@
 ([proyecto_Class40005] of  Superheores
 
 	(Language Easy)
+	(Pages 192)
 	(Popularity Best_Seller)
 	(Title "My Hero Academia")
 	(Writer [proyecto_Class40004])
@@ -611,8 +646,9 @@
 ([proyecto_Class40007] of  Cyberpunk
 
 	(Language Easy)
+	(Pages 352)
 	(Popularity Best_Seller)
-	(Title "Akira")
+	(Title "Akira, Vol. 1")
 	(Writer [proyecto_Class40006])
 	(Year 1982))
 
@@ -627,6 +663,7 @@
 ([proyecto_Class40009] of  Cyberpunk
 
 	(Language Medium)
+	(Pages 210)
 	(Popularity Popular)
 	(Title "Do androids dream of electric sheep?")
 	(Writer [proyecto_Class40008])
@@ -643,6 +680,7 @@
 ([proyecto_Class40011] of  Cyberpunk
 
 	(Language Easy)
+	(Pages 480)
 	(Popularity Non-Popular)
 	(Title "Lágrimas en la lluvia")
 	(Writer [proyecto_Class40010])
@@ -651,6 +689,7 @@
 ([proyecto_Class40012] of  Cyberpunk
 
 	(Language Medium)
+	(Pages 328)
 	(Popularity Best_Seller)
 	(Title "1984")
 	(Writer [proyecto_Class20019])
@@ -667,6 +706,7 @@
 ([proyecto_Class40014] of  Sword_and_Sorcery
 
 	(Language Easy)
+	(Pages 255)
 	(Popularity Normal)
 	(Title "The Hour of the Dragon")
 	(Writer [proyecto_Class40013])
@@ -690,6 +730,24 @@
 	(Place Home Public_Transport Public_Space)
 	(Surname "Tista")
 	(Taste Popular))
+
+([proyecto_Class50001] of  Epic
+
+	(Language Hard)
+	(Pages 352)
+	(Popularity Best_Seller)
+	(Title "The Two Towers")
+	(Writer [proyecto_Class20013])
+	(Year 1954))
+
+([proyecto_Class50002] of  Epic
+
+	(Language Hard)
+	(Pages 416)
+	(Popularity Best_Seller)
+	(Title "The Return of the King")
+	(Writer [proyecto_Class20013])
+	(Year 1955))
 
 ([proyecto_Class6] of  %3APAL-CONSTRAINT
 
