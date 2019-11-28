@@ -38,8 +38,16 @@ R4: 0 <= I7 <= 150 -> Short; 151 <= I7 <= 400 -> Normal; 401 <= I7 -> Long
 ---
 
 X1: If Young and Beginner -> Difficulty = Easy and Length = Short
-X2: If Young and Amateur -> Difficulty = Easy and Length = Normal
-X3: If Young and Advanced -> Difficulty = Medium and Length = Normal
+X2: If Young and Amateur OR Advanced -> Difficulty =  Normal and Length = Normal
+
+
+Difficulty / Length / Genero
+
+---
+
+# X1: If Young and Beginner -> Difficulty = Easy and Length = Short
+# X2: If Young and Amateur -> Difficulty = Easy and Length = Normal
+# X3: If Young and Advanced -> Difficulty = Medium and Length = Normal
 X4: If Adult and Beginner -> Difficulty = Easy and Length = Normal
 X5: If Adult and Amateur -> Difficulty = Easy and Length = Long
 X6: If Adult and Advanced -> Difficulty = Medium and Length = Long
