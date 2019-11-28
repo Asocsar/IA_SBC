@@ -33,23 +33,23 @@ I6: Do you like some of these writers?
 R1: 5 <= I1 <= 17 -> Young; 18 <= I1 <= 30 -> Adult; 31 <= I1 -> Old Adult;
 R2: 0 <= I2 <= 5 -> Beginner; 6 <= I2 <= 15 -> Amateur; 16 <= I2 -> Advanced
 R3: 0 <= I3 <= 2 -> Occasionaly; 3 <= I3 <= 7 -> Casual; 8 <= I3 <= 14 -> Regular; 15 <= I3 -> Dedicated
-R4: 0 <= I7 <= 150 -> Short; 151 <= I7 <= 400 -> Medium; 401 <= I7 -> Long
+R4: 0 <= I7 <= 150 -> Short; 151 <= I7 <= 400 -> Normal; 401 <= I7 -> Long
 
 ---
 
 X1: If Young and Beginner -> Difficulty = Easy and Length = Short
-X2: If Young and Amateur -> Difficulty = Easy and Length = Medium
-X3: If Young and Advanced -> Difficulty = Medium and Length = medium
-X4: If Adult and Beginner -> Difficulty = Easy and Length = Medium
+X2: If Young and Amateur -> Difficulty = Easy and Length = Normal
+X3: If Young and Advanced -> Difficulty = Medium and Length = Normal
+X4: If Adult and Beginner -> Difficulty = Easy and Length = Normal
 X5: If Adult and Amateur -> Difficulty = Easy and Length = Long
 X6: If Adult and Advanced -> Difficulty = Medium and Length = Long
-X7: If Old Adult and Beginner -> Difficulty = Medium and Length = Medium
-X8: If Old Adult and Amateur -> Difficulty -> Difficulty = Hard and Length = Medium
+X7: If Old Adult and Beginner -> Difficulty = Medium and Length = Normal
+X8: If Old Adult and Amateur -> Difficulty -> Difficulty = Hard and Length = Normal
 X9: If Old Adult and Advanced -> Difficulty -> Difficulty = Hard and Length = Long
 
 
 X13: If Occasionaly -> Length = Short
-X14: If Casual -> Length = Medium
+X14: If Casual -> Length = Normal
 X15: If Regular or dedicated -> Length = Long
 
 
