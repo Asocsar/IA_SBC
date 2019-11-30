@@ -149,6 +149,8 @@
 ;;;* ESTRUCTURAS *
 ;;;****************************
 
+(deftemplate lista (multislot name (type STRING)) (multislot number (type INTEGER)))
+(deftemplate books (slot name (type STRING)) (slot puntuaje (type INTEGER) (default 0)))
 (deftemplate likes (slot id (type SYMBOL)))
 (deftemplate age (slot age (type INTEGER )))
 (deftemplate nbooks (slot num (type INTEGER)))
@@ -164,38 +166,34 @@
 ;;;****************************
 
 
+(deffunction ask-integer (?question ?init ?ende)
+   (printout t ?question crlf)
+   (bind ?answer (read))
+   (bind ?end FALSE)
+   (while (not ?end) do
+      (if (eq (type ?answer) INTEGER) then
+      (if (and (<= ?answer ?ende) (>= ?answer ?init)) then
+          (bind ?end TRUE)
+        else
+      (printout t "The number has to be between ")
+			(printout t ?init)
+			(printout t " and ")
+			(printout t ?ende)
+			(printout t ", you fool " crlf)
+      (bind ?answer (read)))
+      else
+      (printout t "Please write a number " crlf)
+      (bind ?answer (read))
+      ))
+      ?answer)
 
 (deffunction ask-question (?question $?allowed-values)
-   (printout t ?question)
+   (printout t ?question crlf)
    (bind ?answer (read))
    (while (not (member ?answer ?allowed-values)) do
-      (printout t ?allowed-values)
-      (printout t ?question)
+      (printout t ?question crlf)
       (bind ?answer (read))
   ?answer) ?answer)
-
-
-	(deffunction ask-integer (?question ?init ?ende)
-	   (printout t ?question)
-	   (bind ?answer (read))
-	   (bind ?end FALSE)
-	   (while (not ?end) do
-	      (if (eq (type ?answer) INTEGER) then
-	      (if (and (<= ?answer ?ende) (>= ?answer ?init)) then
-	          (bind ?end TRUE)
-	        else
-	      (printout t "Remember that your age has to be between ")
-				(printout t ?init)
-				(printout t " and ")
-				(printout t ?ende)
-				(printout t ", you fool " crlf)
-	      (bind ?answer (read)))
-	      else
-	      (printout t "Remember that your age has to be a number, or didn't you go to the school ? " crlf)
-	      (bind ?answer (read))
-	      ))
-	      ?answer)
-
 
 (deffunction yes-or-no-p (?question)
    (bind ?response (ask-question ?question yes no y n))
@@ -203,25 +201,17 @@
        then TRUE
        else FALSE))
 
-;(deffunction filter_books ()
-; (bind ?f (find-all-facts ((?l likes)) TRUE))
-;  (bind $?r (fact-slot-value (nth$ 1 ?f) id))
-;	(bind ?aux "")
-;  (bind ?j 2)
-;	(bind $?ret ?aux)
-;  (while (<= ?j (length$ ?f))
-;  do
-;    (bind ?v (fact-slot-value (nth$ ?j ?f) id))
-;    (bind $?r ?r ?v)
-;    (bind ?j (+ ?j 1))
-;  )
-;	(printout t ?ret)
-;  (do-for-all-instances ((?inst Libro_Fantasia)) TRUE
-;     (if (eq ?aux ?ret) then
-;				(bind $?ret ?inst)
-;				else
-;				(bind $?ret ?ret ?inst)))
-;    ?ret)
+(deffunction class_pages (?pages)
+	(bind ?r "")
+	(if (and (>= ?pages 0) (<= ?pages 150)) then
+		(bind ?r Short)
+	)
+	(if (and (> ?pages 150) (<= ?pages 400)) then
+		(bind ?r Normal)
+	)
+	(if (> ?pages 400) then
+		(bind ?r Long)
+	) ?r)
 
 
 ;;;****************************
@@ -229,95 +219,107 @@
 ;;;****************************
 
 
-(defrule puntuaje_easy ""
-	 ?i <- (object (Language ?lang))
-	 ?j <- (likes (id Easy))
-	 (test (eq (send ?i get-Language) (fact-slot-value ?j id) ))
+(defrule puntuaje_difficultad ""
+	 (declare (salience 99))
+	 ?i <- (object (Title ?title) (Language ?lang))
+	 ?j <- (likes (id ?e))
+	 (test (eq ?lang ?e))
 	 =>
-	 (printout t (send ?i get-Title) crlf))
+	 (bind ?st (nth$ 1 (find-fact ((?l books)) (eq ?l:name ?title))))
+	 (modify ?st (name ?title) (puntuaje (+ (fact-slot-value ?st puntuaje) 1)))
+	 (assert (difficultad))
+	 )
 
+(defrule puntuaje_genero ""
+	 (declare (salience 99))
+	 ?i <- (object (Title ?title))
+	 ?j <- (likes (id ?e))
+	 (test (eq (type ?i) ?e))
+	 =>
+	 (bind ?st (nth$ 1 (find-fact ((?l books)) (eq ?l:name ?title))))
+	 (modify ?st (name ?title) (puntuaje (+ (fact-slot-value ?st puntuaje) 1)))
+	 (assert (genero))
+	 )
+
+(defrule puntuaje_paginas ""
+	 (declare (salience 99))
+	 ?i <- (object (Title ?title) (Pages ?p))
+	 ?j <- (likes (id ?e))
+	 (test (eq (class_pages ?p) ?e))
+	 =>
+	 (bind ?st (nth$ 1 (find-fact ((?l books)) (eq ?l:name ?title))))
+	 (modify ?st (name ?title) (puntuaje (+ (fact-slot-value ?st puntuaje) 1)))
+	 (assert (paginas))
+	 )
+
+(defrule ordena-llista
+	?indice <- (lista (name $?t_ini ?t1 ?t2 $?t_end) (number $?n_ini ?n1 ?n2 $?n_end))
+	(test (eq (length$ ?t_ini) (length$ ?n_ini)))
+	(test (< ?n1 ?n2))
+	=>
+	(assert (lista (name ?t_ini ?t2 ?t1 ?t_end) (number ?n_ini ?n2 ?n1 ?n_end)))
+	(retract ?indice))
 
 ;;;****************************
 ;;;* INITIAL AND END OF THE PROGRAM *
 ;;;****************************
 
+(defrule assertion ""
+ (initial $?)
+ ?i <- (object (Title ?title))
+ 	=>
+	(assert (books (name ?title) ) ) )
+
+
 (defrule system-banner ""
 	(not (initial ?))
   =>
-  (load-instances "Instances2.pins")
+  (load-instances "Instances.pins")
   (assert (initial))
   (bind $?i 1)
   (printout t crlf crlf)
   (printout t "System of Recomendation for Books")
   (printout t crlf crlf))
 
+(defrule end ""
+	(declare (salience -10))
+	?l <- (lista (name $?t) (number $?n))
+	=>
+	(bind ?i 1)
+	(printout t (length$ ?t) crlf)
+	(printout t "We recomend you the following list of books" crlf)
+	(while (<= ?i 3)
+	do
+	(printout t (nth$ ?i ?t) crlf)
+	(bind ?i (+ ?i 1))
+	)
+	)
 
-  ;(defrule exit ""
-  ;  (gustados $?)
-	;	(populares $?)
-  ;  =>
-	;	(printout t crlf)
-  ;  (bind ?result (filter_books))
-	;	(bind ?i 1)
-	;	(while (<= ?i 3);(length$ ?result))
-	;	do
-	;	(bind ?inst (nth$ ?i ?result))
-	;	(printout t (send ?inst get-Title) crlf)
-	;	(bind ?i (+ ?i 1))
-	;	)
-  ;  (printout t crlf crlf)
-  ;  (printout t "Sortida")
-  ;  (printout t crlf crlf))
-
-
-  ;;;****************************
-  ;;;* QUESTIONS *
-  ;;;****************************
-
-  (defrule start_question ""
-    (initial $?)
+  (defrule crea_llista ""
+    (difficultad $?)
+		(genero $?)
+		(paginas $?)
     =>
-    (bind ?response (ask-question "What difficulty do you prefer? (Easy/Medium/Hard/None) " Easy Medium Hard None))
-		(if (eq ?response None) then
-			(assert(likes (id None_Language)))
-			else
-			(assert(likes (id ?response)))
+		(bind ?facts (find-all-facts ((?f books)) TRUE))
+		(bind $?val1 (fact-slot-value (nth$ 1 ?facts) name ))
+		(bind $?val2 (fact-slot-value (nth$ 1 ?facts) puntuaje ))
+		(bind ?i 2)
+		(while (<= ?i (length$ ?facts))
+		do
+		(bind $?val1 ?val1 (fact-slot-value (nth$ ?i ?facts) name ))
+		(bind $?val2 ?val2 (fact-slot-value (nth$ ?i ?facts) puntuaje ))
+		(bind ?i (+ ?i 1))
 		)
-    (while (and (not (eq ?response None)) (yes-or-no-p "Do you have any other preferences? (yes/no)"))
-    do
-    (bind ?response (ask-question "What difficulty do you prefer? (Easy/Medium/Hard)" Easy Medium Hard ))
-		(if (eq ?response None) then
-			(assert(likes (id None_popular)))
-			else
-			(assert(likes (id ?response)))
-		)
-    )
-    (assert (gustados)))
+		(assert (lista (name ?val1) (number ?val2))))
 
 
+  ;;;**********************************
+  ;;;* ABSTRACTION OF THE INFORMATION *
+  ;;;**********************************
 
-		(defrule Popularity ""
-	   (initial $?)
-	    =>
-	    (bind ?response (ask-question "Do you want a famous book ? (Popular/Critic/Best_Seller/Normal/Non-Popular/None) " Popular Critic Best_Seller Normal Non-Popular None))
-			(if (eq ?response None) then
-				(assert(likes (id None_popular)))
-				else
-				(assert(likes (id ?response)))
-			)
-
-	    (while (and (not (eq ?response None)) (yes-or-no-p "Do you have any other preferences? (yes/no)"))
-	    do
-	    (bind ?response (ask-question "Do you want a famous book ? (Popular/Critic/Best_Seller/Normal/Non-Popular) " Popular Critic Best_Seller Normal Non-Popular))
-			(if (eq ?response None) then
-				(assert(likes (id None_popular)))
-				else
-				(assert(likes (id ?response)))
-			)
-	    )
-	    (assert (populares)))
-
-
+		; 5 <= AGE <= 17 -> YOUNG
+		; 18 <= AGE <= 30 -> ADULT
+		; 31 <= AGE -> OLD ADULT
 		(defrule Age_rule ""
 			(initial $?)
 			=>
@@ -333,6 +335,74 @@
 				(assert(likes (id Old_adult)))
 			))
 
+
+		; 0 <= Nº HOURS <= 2 -> OCASIONALLY
+		; 3 <= Nº HOURS <= 7 -> CASUAL
+		; 8 <= Nº HOURS <= 14 -> REGULAR
+		; 14 <= Nº HOURS -> DEDICATED
+		(defrule Number_hours ""
+			(initial $?)
+			=>
+			(bind ?response (ask-integer "How many hours do you read per week? (INTEGER NUMBER) " 0  168))
+			(assert (nhours (num ?response)))
+			(if (and (>= ?response 0) (<= ?response 2)) then
+				(assert(likes (id Ocasionally)))
+			)
+			(if (and (>= ?response 3) (<= ?response 17)) then
+				(assert(likes (id Casual)))
+			)
+			(if (and (>= ?response 8) (<= ?response 14)) then
+				(assert(likes (id Regular)))
+			)
+			(if (> ?response 14) then
+				(assert(likes (id Dedicated)))
+			))
+
+		; 0 <= Nº PAGES <= 150 -> SHORT
+		; 151 <= Nº PAGES <= 400 -> NORMAL
+		; 400 > Nº PAGES -> LONG
+		(defrule Number_pages ""
+				(initial $?)
+				=>
+				(bind ?response (ask-integer "About how many pages have the books you usually read? (INTEGER NUMBER) " 0 5000))
+				(assert (npages (num ?response)))
+				(if (and (>= ?response 0) (<= ?response 150)) then
+					(assert(likes (id Short)))
+				)
+				(if (and (> ?response 150) (<= ?response 400)) then
+					(assert(likes (id Normal)))
+				)
+				(if (> ?response 400) then
+					(assert(likes (id Long)))
+				))
+
+
+		; NARRATIVE ACTION AND SETTING MEDIAVAL -> ADVENTURE, EPIC, MAGIC, SWORD_AND_SORCERY
+		; NARRATIVE DEVELOPMENT AND SETTING MEDIAVAL -> FABULA
+		; NARRATIVE ACTION AND SETTING URBAN -> SUPERHEROES, CYBERPUNK, SCI-FI
+		; NARRATIVE DEVELOPMENT AND SETTING URBAN -> ROMANTIC, DARK, SPOOKY
+		(defrule setting_rule ""
+				(initial $?)
+				=>
+				(bind ?response1 (ask-question "What type of setting do you prefer on books, medieval/fantasy or modern/urban? (Medieval/Urban) " Medieval Urban))
+				(bind ?response2 (ask-question "What do you prefer in a story, a lot of action or more character and world development?  (Action/Development) " Action Development ))
+				(assert (setting (id ?response1)))
+				(assert (narrative (id ?response2)))
+				(if (eq ?response1 Medieval) then
+					(if (eq ?response2 Action) then
+						(assert(likes (id Adventure)) (likes (id Epic)) (likes (id Magic)) (likes (id Sword_and_Sorcery)))
+					else
+						(assert(likes (id Fabula))))
+					else
+					(if (eq ?response2 Action) then
+					 (assert(likes (id Superheores)) (likes (id Cyberpunk)) (likes (id Science+Fiction)))
+					 else
+					 (assert(likes (id Dark)) (likes (id Romantic)) (likes (id Spooky))))
+				))
+
+		; 0 <= Nº OF BOOKS <= 5 -> BEGINNER
+		; 6 <= Nº OF BOOKS <= 15 -> AMATEUR
+		; 15 <= Nº OF BOOKS -> ADVANCED
 		(defrule Number_books ""
 			(initial $?)
 			=>
@@ -348,100 +418,37 @@
 				(assert(likes (id Advanced)))
 			))
 
-			(defrule Number_hours ""
-				(initial $?)
+		; IF YOUNG OR ADULT AND BEGGINER -> EASY
+		(defrule for_young_B ""
+				(or (likes (id Young)) (likes (id Adult)) )
+				(likes (id Beginner))
 				=>
-				(bind ?response (ask-integer "How many hours do you read per week? (INTEGER NUMBER) " 0  168))
-				(assert (nhours (num ?response)))
-				(if (and (>= ?response 0) (<= ?response 2)) then
-					(assert(likes (id Ocasionally)))
-				)
-				(if (and (>= ?response 3) (<= ?response 17)) then
-					(assert(likes (id Casual)))
-				)
-				(if (and (>= ?response 8) (<= ?response 14)) then
-					(assert(likes (id Regular)))
-				)
-				(if (> ?response 14) then
-					(assert(likes (id Dedicated)))
-				))
+				(assert (likes (id Easy))))
 
-				(defrule Number_pages ""
-					(initial $?)
-					=>
-					(bind ?response (ask-integer "About how many pages have the books you usually read? (INTEGER NUMBER) " 0 5000))
-					(assert (npages (num ?response)))
-					(if (and (>= ?response 0) (<= ?response 150)) then
-						(assert(likes (id Short)))
-					)
-					(if (and (> ?response 150) (<= ?response 400)) then
-						(assert(likes (id Normal)))
-					)
-					(if (> ?response 400) then
-						(assert(likes (id Long)))
-					))
+		; IF YOUNG AND AMATEUR OR ADVANCES -> MEDIUM
+		(defrule for_young_else ""
+				(likes (id Young))
+				(or (likes (id Amateur)) (likes (id Advanced)))
+				=>
+				(assert (likes (id Medium))))
 
-				(defrule setting_rule ""
-					(initial $?)
-					=>
-					(bind ?response (ask-question "What type of setting do you prefer on books, medieval/fantasy or modern/urban? (Medieval/Urban) " Medieval Urban))
-					(assert (setting (id ?response)))
-					(if (eq ?response Medieval) then
-						(assert(likes (id Adventure)) (likes (id Epic)) (likes (id Magic)) (likes (id Fabula)) (likes (id Sword_and_Sorcery)))
-						else
-						(assert(likes (id Cyberpunk)) (likes (id Dark)) (likes (id Romantic)) (likes (id Spooky)) (likes (id Superheores)))
-					))
+		; IF ADULT OR OLD_ADULT AND AMATEUR -> MEDIUM
+		(defrule for_adults_Am ""
+				(or (likes (id Adult)) (likes (id Old_adult)))
+				(likes (id Amateur))
+				=>
+				(assert (likes (id Medium))))
 
-				(defrule narrative_rule ""
-					(initial $?)
-					=>
-					(bind ?response (ask-question "What do you prefer in a story, a lot of action or more character and world development?  (Action/Development) " Action Development ))
-					(assert (narrative (id ?response)))
-					(if (eq ?response Action) then
-						(assert(likes (id Adventure)) (likes (id Epic)) (likes (id Magic)) (likes (id Sword_and_Sorcery)) (likes (id Superheores)) (likes (id Cyberpunk)))
-						else
-						(assert(likes (id Dark)) (likes (id Romantic)) (likes (id Spooky)) (likes (id Fabula)))
-					))
+		; IF ADULT OR OLD_ADULT AND ADVANCED -> HARD
+		(defrule for_adults_Ad ""
+				(or (likes (id Adult)) (likes (id Old_adult)))
+				(likes (id Advanced))
+				=>
+				(assert (likes (id Hard))))
 
-				(defrule for_young_B ""
-					(likes (id Young))
-					(likes (id Beginner))
-					=>
-					(assert (likes (id Easy))))
-
-				(defrule for_young_else ""
-					(likes (id Young))
-					(or (likes (id Amateur)) (likes (id Advanced)))
-					=>
-					(assert (likes (id Medium))))
-
-			(defrule for_adult_B ""
-					(likes (id Adult))
-					(likes (id Beginner))
-					=>
-					(assert (likes (id Easy))))
-
-			(defrule for_adults_Am ""
-					(or (likes (id Adult)) (likes (id Old_adult)))
-					(likes (id Amateur))
-					=>
-					(assert (likes (id Medium))))
-
-			(defrule for_adults_Ad ""
-					(or (likes (id Adult)) (likes (id Old_adult)))
-					(likes (id Advanced))
-					=>
-					(assert (likes (id Hard))))
-
-			(defrule for_old_adult_B ""
-					(likes (id Old_adult))
-					(likes (id Beginner))
-					=>
-					(assert (likes (id Medium))))
-
-		;	(defrule )
-
-					;(defrule for_young ""
-					;	(likes (Young))
-					;	=>
-					;	(if (likes Ocasionally) )
+		; IF OLD_ADULT AND BEGINNER -> MEDIUM
+		(defrule for_old_adult_B ""
+				(likes (id Old_adult))
+				(likes (id Beginner))
+				=>
+				(assert (likes (id Medium))))
