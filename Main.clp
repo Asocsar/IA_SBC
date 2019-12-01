@@ -1,149 +1,3 @@
-(defclass Libro_Fantasia
-	(is-a USER)
-	(role concrete)
-	(single-slot Title
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Year
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Writer
-		(type INSTANCE)
-;+		(allowed-classes Autor)
-		(cardinality 1 2)
-		(create-accessor read-write))
-	(single-slot Pages
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Language
-		(type SYMBOL)
-		(allowed-values Easy Medium Hard)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Popularity
-		(type SYMBOL)
-		(allowed-values Popular Critic Best_Seller Normal Non-Popular)
-;+		(cardinality 1 1)
-		(create-accessor read-write)))
-
-(defclass Epic
-	(is-a Libro_Fantasia)
-	(role concrete))
-
-(defclass Fabula
-	(is-a Libro_Fantasia)
-	(role concrete))
-
-(defclass Magic
-	(is-a Libro_Fantasia)
-	(role concrete))
-
-(defclass Adventure
-	(is-a Libro_Fantasia)
-	(role concrete))
-
-(defclass Cyberpunk
-	(is-a Libro_Fantasia)
-	(role concrete))
-
-(defclass Superheores
-	(is-a Libro_Fantasia)
-	(role concrete))
-
-(defclass Sword_and_Sorcery
-	(is-a Libro_Fantasia)
-	(role concrete))
-
-(defclass Spooky
-	(is-a Libro_Fantasia)
-	(role concrete))
-
-(defclass Romantic
-	(is-a Libro_Fantasia)
-	(role concrete))
-
-(defclass Dark
-	(is-a Libro_Fantasia)
-	(role concrete))
-
-(defclass Science+Fiction
-	(is-a Libro_Fantasia)
-	(role concrete))
-
-(defclass Persona
-	(is-a USER)
-	(role concrete)
-	(single-slot Surname
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Nationality
-		(type SYMBOL)
-		(allowed-values Spain Norway EU France UK Japan)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Name
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write)))
-
-(defclass Autor
-	(is-a Persona)
-	(role concrete)
-	(single-slot Difficulty
-		(type SYMBOL)
-		(allowed-values Easy Medium Hard)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot LIbro
-		(type INSTANCE)
-;+		(allowed-classes Libro_Fantasia)
-		(cardinality 1 ?VARIABLE)
-		(create-accessor read-write)))
-
-(defclass Lector
-	(is-a Persona)
-	(role concrete)
-	(single-slot Frequency
-		(type SYMBOL)
-		(allowed-values Daily Ocasionally Whenever)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Moment
-		(type SYMBOL)
-		(allowed-values Morning Night Evening)
-		(cardinality 1 ?VARIABLE)
-		(create-accessor read-write))
-	(single-slot Taste
-		(type SYMBOL)
-		(allowed-values Popular Critic Best_Seller National Foreigner)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Age
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Place
-		(type SYMBOL)
-		(allowed-values Home Public_Transport Public_Space)
-		(cardinality 1 ?VARIABLE)
-		(create-accessor read-write))
-	(multislot Friend
-		(type INSTANCE)
-;+		(allowed-classes Persona)
-		(create-accessor read-write)))
-
-
-
-;;;****************************
-;;;* STARTUP *
-;;;****************************
-
-;(load "clases.clp")
-;(load-instances "Instances.pins")
 
 ;;;****************************
 ;;;* ESTRUCTURAS *
@@ -418,37 +272,79 @@
 				(assert(likes (id Advanced)))
 			))
 
-		; IF YOUNG OR ADULT AND BEGGINER -> EASY
-		(defrule for_young_B ""
-				(or (likes (id Young)) (likes (id Adult)) )
-				(likes (id Beginner))
+
+   ;ASSERT LIKES EASY LANGUAGE IF:
+   ;IF YOUNG AND OCASIONALLY OR CASUAL
+	 ;IF ADULT AND OCASIONALLY
+	 (defrule Easy_language ""
+	 			(likes (id Beginner))
+				(or (and(likes (id Young)) (likes (id Ocasionally|Casual)))
+					(and(likes (id Adult)) (likes (id Ocasionally))))
 				=>
 				(assert (likes (id Easy))))
 
-		; IF YOUNG AND AMATEUR OR ADVANCES -> MEDIUM
-		(defrule for_young_else ""
-				(likes (id Young))
-				(or (likes (id Amateur)) (likes (id Advanced)))
+
+
+	 ;ASSERT LIKES MEDIUM LANGUAGE IF:
+	 ;IF YOUNG AND AMATEUR
+	 ;IF YOUNG AND BEGINNER AND REGULAR OR DEDICATED
+	 ;IF YOUNG AND ADVANCED AND OCASIONALLY OR CASUAL OR REGULAR
+	 ;IF ADULT AND BEGINNER AND CASUAL OR REGULAR OR DEDICATED
+	 ;IF ADULT AND AMATEUR OR ADVANCED AND OCASIONALLY
+	 ;IF OLD ADULT AND OCASIONALLY OR CASUAL AND BEGINNER OR AMATEUR
+	 (defrule Medium_language ""
+	 			(or (and (likes (id Young)) (or (likes (id Amateur)) (and (likes (id Beginner)) (likes (id Regular|Dedicated)))
+					(and (likes (id Advanced)) (likes (id Ocasionally|Casual|Regular)))))
+				(and (likes (id Adult)) (or (and (likes (id Beginner)) (likes (id Casual|Regular|Dedicated)))
+					(and (likes (id Amateur|Advanced)) (likes (id Ocasionally)))))
+				(and (likes (id Old_adult)) (likes (id Ocasionally|Casual)) (likes (id Beginner|Amateur))))
 				=>
 				(assert (likes (id Medium))))
 
-		; IF ADULT OR OLD_ADULT AND AMATEUR -> MEDIUM
-		(defrule for_adults_Am ""
-				(or (likes (id Adult)) (likes (id Old_adult)))
-				(likes (id Amateur))
-				=>
-				(assert (likes (id Medium))))
 
-		; IF ADULT OR OLD_ADULT AND ADVANCED -> HARD
-		(defrule for_adults_Ad ""
-				(or (likes (id Adult)) (likes (id Old_adult)))
-				(likes (id Advanced))
-				=>
-				(assert (likes (id Hard))))
 
-		; IF OLD_ADULT AND BEGINNER -> MEDIUM
-		(defrule for_old_adult_B ""
-				(likes (id Old_adult))
-				(likes (id Beginner))
+   ;ASSERT LIKES HARD LANGUAGE IF:
+	 ;IF YOUNG AND DEDICATED AND ADVANCED
+	 ;IF ADULT AND CASUAL OR REGULAR OR DEDICATED AND AMATEUR OR ADVANCED
+	 ;IF OLD ADULT AND (REGULAR OR DEDICATED) OR (OCASIONALLY OR CASUAL AND ADVANCED)
+	 (defrule Hard_Language ""
+	 			(or (and (likes (id Young)) (likes (id Dedicated)) (likes (id Advanced)))
+				(and (likes (id Adult)) (likes (id Casual|Regular|Dedicated)) (likes (id Amateur|Advanced)))
+				(and (likes (id Old_adult)) (or (likes (id Regular|Dedicated)) (and (likes (id Ocasionally|Casual)) (likes (id Advanced))))))
 				=>
-				(assert (likes (id Medium))))
+				(assert(likes (id Hard))))
+
+
+
+   ;ASSERT LIKES SHORT EXTENSION IF:
+	 ;IF AMATEUR AND OCASIONALLY
+	 ;IF BEGINNER AND OCASIONALLY OR CASUAL OR REGULAR
+	 (defrule Short_extension ""
+	 			(or (and (likes (id Amateur)) (likes (id Ocasionally)))
+				(and (likes (id Beginner)) (likes (id Ocasionally|Casual|Regular))))
+				=>
+				(assert (likes (id Short))))
+
+
+
+   ;ASSERT LIKES NORMAL EXTENSION IF:
+	 ;IF BEGINNER AND DEDICATED
+	 ;IF AMATEUR AND CASUAL OR REGULAR
+	 ;IF ADVANCED AND OCASIONALLY
+	 (defrule Normal_extension ""
+	 			(or (and (likes (id Beginner)) (likes (id Dedicated)))
+				(and (likes (id Amateur)) (likes (id Casual|Regular)))
+				(and (likes (id Advanced)) (likes (id Ocasionally))))
+				=>
+				(assert (likes (id Normal))))
+
+
+
+   ;ASSERT LIKES LONG EXTENSION IF:
+	 ;IF AMATEUR AND DEDICATED
+	 ;IF ADVANCED AND CASUAL OR REGULAR OR DEDICATED
+	 (defrule Long_extension ""
+	 			(or (and (likes (id Amateur)) (likes (id Dedicated)))
+				(and (likes (id Advanced)) (likes (id Casual|Regular|Dedicated))))
+				=>
+				(assert (likes (id Long))))
