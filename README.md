@@ -1,16 +1,17 @@
 # IA_SBC
 
 ### Ideas:
-```
-- Books need attribute for language
-- Preference: National or foreign author?
-- Where to read, ex. if collective transport => difficulty = easy or medium
-- How often to read, ex. daily => difficulty = easy or medium
-- Genres that are related somehow, ex. magic => sword and sorcery
-- If empty (no preferences) => popularity = best sellers
-- If empty (no preferences) and if have a friend => use friend's data
-- If an experienced reader => difficulty = hard and popularity = critics or classic
-```
+
+[] Books need attribute for language
+[] Preference: National or foreign author?
+[] Where to read, ex. if collective transport => difficulty = easy or medium
+[x] How often to read, ex. daily => difficulty = easy or medium
+[x] Genres that are related somehow, ex. magic => sword and sorcery
+[] If empty (no preferences) => popularity = best sellers
+[] If empty (no preferences) and if have a friend => use friend's data
+[x] If an experienced reader => difficulty = hard and popularity = critics or classic
+[] Dou you prefer best Sellers or another kind of book ?
+
 
 **More attributes:**
   1. Language of the book
@@ -97,6 +98,27 @@
 	+ IF AMATEUR AND DEDICATED
 	+ IF ADVANCED AND CASUAL OR REGULAR OR DEDICATED
 ```
+
+7. BEST SELLER AND POPULAR BOOK IF:
+```
+	+ BEGINNER AND OCASIONALLY
+```
+
+8. CRITIC
+```
+	+ ADVANCED AND REGULAR
+	+ AMATEUR AND DEDICATED
+```
+9. NORMAL
+```
+	+ REGULAR AND AMATEUR
+	+ REGULAR AND BEGGINER
+```
+10. NON-POPULAR
+```
+	+
+```
+
 
 ## Other things:
 * Does the book "Seven deadly sins" have author?
