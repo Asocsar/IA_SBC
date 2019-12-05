@@ -3,19 +3,17 @@
 ### Ideas:
 
 - [ ] Books need attribute for language
-- [ ] Preference: National or foreign author?
-- [ ] Where to read, ex. if collective transport => difficulty = easy or medium
+- [ ] si prefiere autores extranjeros
+- [ ] lugar (en el transporte público, tranquilamente en su casa, en la cama) en el que va a leer
 - [x] How often to read, ex. daily => difficulty = easy or medium
 - [x] Genres that are related somehow, ex. magic => sword and sorcery
 - [ ] If empty (no preferences) => popularity = best sellers
 - [ ] If empty (no preferences) and if have a friend => use friend's data
 - [x] If an experienced reader => difficulty = hard and popularity = critics or classic
-- [ ] Dou you prefer best Sellers or another kind of book ?
-
-
-**More attributes:**
-  1. Language of the book
-  2. 
+- [ ] si le gustan los libros populares (bestsellers), si se fía de las valoraciones que reciben los libros en las críticas literarias, si se deja llevar por las modas
+- [ ] Can we use this information for something? "el momento (mañana, tarde, noche, fin de semana...)"
+- Make sets with authors that have the same style? "estos suelen tener estilos similares que nos indican
+los tipos de libros que prefiere el lector"
 
 
 ### Initial Information
