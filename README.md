@@ -1,6 +1,6 @@
 # IA_SBC
 
-**Ideas:**
+### Ideas:
 ```
 - Books need attribute for language
 - Preference: National or foreign author?
@@ -13,29 +13,25 @@
 - If an experienced reader => difficulty = hard and popularity = critics or classic
 ```
 
-More attributes:
-  - Number of pages
-  - 
+**More attributes:**
+  1. Number of pages
+  2. 
 
-Other things:
-Does the book "Seven deadly sins" have author?
-In the onthology put a constraint => not possible be friend to yourself
-The nationality for all authors is not correct.
-What can we use with the information "time of the day the reader reads?"
 
-------------------------------------------------------------------------
-I1: Age
-I2: Number of books read
-I3: Number of hours dedicated to read
-I4: Number of pages
-I5: Nationality / What languages do you understand?
-I6: Do you like some of these writers?
+### Initial Information
+1. Age
+2. Number of books read
+3. Number of hours dedicated to read
+4. Number of pages
+5. Nationality / What languages do you understand?
+6. Do you like some of these writers?
 
----   RULES ---
-R1: 
-		; 5 <= AGE <= 17 -> YOUNG
-		; 18 <= AGE <= 30 -> ADULT
-		; 31 <= AGE -> OLD ADULT
+### RULES
+
+1. R1: 
+	* 5 <= AGE <= 17 -> YOUNG
+	* 18 <= AGE <= 30 -> ADULT
+	* 31 <= AGE -> OLD ADULT
 
 R2: 
 		; 0 <= Nº HOURS <= 2 -> OCASIONALLY
@@ -86,4 +82,10 @@ X13: If Occasionaly -> Length = Short
 X14: If Casual -> Length = Normal
 X15: If Regular or dedicated -> Length = Long
 
+
+Other things:
+Does the book "Seven deadly sins" have author?
+In the onthology put a constraint => not possible be friend to yourself
+The nationality for all authors is not correct.
+What can we use with the information "time of the day the reader reads?"
 
