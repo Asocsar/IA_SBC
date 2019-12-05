@@ -28,14 +28,37 @@ I4: Number of pages
 I5: Nationality / What languages do you understand?
 I6: Do you like some of these writers?
 
+---   RULES ---
+R1: 
+		; 5 <= AGE <= 17 -> YOUNG
+		; 18 <= AGE <= 30 -> ADULT
+		; 31 <= AGE -> OLD ADULT
+
+R2: 
+		; 0 <= Nº HOURS <= 2 -> OCASIONALLY
+		; 3 <= Nº HOURS <= 7 -> CASUAL
+		; 8 <= Nº HOURS <= 14 -> REGULAR
+		; 14 <= Nº HOURS -> DEDICATED
+    
+R3: 
+		; 0 <= Nº PAGES <= 150 -> SHORT
+		; 151 <= Nº PAGES <= 400 -> NORMAL
+		; 400 > Nº PAGES -> LONG
+    
+R4: 
+		; NARRATIVE ACTION AND SETTING MEDIAVAL -> ADVENTURE, EPIC, MAGIC, SWORD_AND_SORCERY
+		; NARRATIVE DEVELOPMENT AND SETTING MEDIAVAL -> FABULA
+		; NARRATIVE ACTION AND SETTING URBAN -> SUPERHEROES, CYBERPUNK, SCI-FI
+		; NARRATIVE DEVELOPMENT AND SETTING URBAN -> ROMANTIC, DARK, SPOOKY
+
+R5:
+		; 0 <= Nº OF BOOKS <= 5 -> BEGINNER
+		; 6 <= Nº OF BOOKS <= 15 -> AMATEUR
+		; 15 <= Nº OF BOOKS -> ADVANCED
+
 ---
 
-R1: 5 <= I1 <= 17 -> Young; 18 <= I1 <= 30 -> Adult; 31 <= I1 -> Old Adult;
-R2: 0 <= I2 <= 5 -> Beginner; 6 <= I2 <= 15 -> Amateur; 16 <= I2 -> Advanced
-R3: 0 <= I3 <= 2 -> Occasionaly; 3 <= I3 <= 7 -> Casual; 8 <= I3 <= 14 -> Regular; 15 <= I3 -> Dedicated
-R4: 0 <= I7 <= 150 -> Short; 151 <= I7 <= 400 -> Normal; 401 <= I7 -> Long
 
----
 
 X1: If Young and Beginner -> Difficulty = Easy and Length = Short
 X2: If Young and Amateur OR Advanced -> Difficulty =  Normal and Length = Normal
