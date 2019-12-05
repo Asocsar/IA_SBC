@@ -101,13 +101,14 @@
 
 7. BEST SELLER AND POPULAR BOOK IF:
 ```
-	+ BEGINNER AND OCASIONALLY
+	+ BEGINNER AND NORMAL
+	+ BEGGINER AND EASY
 ```
 
 8. CRITIC
 ```
-	+ ADVANCED AND REGULAR
 	+ AMATEUR AND DEDICATED
+	+ ADVANCED AND DEDICATED
 ```
 9. NORMAL
 ```
@@ -116,13 +117,13 @@
 ```
 10. NON-POPULAR
 ```
+	+BEGINNER AND DEDICATED
 	+
 ```
 
 
 ## Other things:
-* Does the book "Seven deadly sins" have author?
-* In the onthology put a constraint => not possible be friend to yourself
+* Delete the friends, I want to be alone without any friends......Hello darkness my old friend, I'm glad to see you again.....
 * The nationality for all authors is not correct.
 * What can we use with the information "time of the day the reader reads?"
 
