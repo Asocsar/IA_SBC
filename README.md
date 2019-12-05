@@ -4,7 +4,6 @@
 ```
 - Books need attribute for language
 - Preference: National or foreign author?
-- Age of the reader, ex. if age < 14 => difficulty = easy
 - Where to read, ex. if collective transport => difficulty = easy or medium
 - How often to read, ex. daily => difficulty = easy or medium
 - Genres that are related somehow, ex. magic => sword and sorcery
@@ -14,7 +13,7 @@
 ```
 
 **More attributes:**
-  1. Number of pages
+  1. Language of the book
   2. 
 
 
