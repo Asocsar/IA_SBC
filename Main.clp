@@ -313,7 +313,7 @@
 		(defrule Number_books ""
 			(initial $?)
 			=>
-			(bind ?response (ask-integer "How many books have you read? (INTEGER NUMBER) " 0 40))
+			(bind ?response (ask-integer "How many books have you read? (INTEGER NUMBER) " 0 100))
 			(assert (nbooks (num ?response)))
 			(if (and (>= ?response 0) (<= ?response 5)) then
 				(assert(likes (id Beginner)))
