@@ -1,4 +1,4 @@
-; Mon Dec 09 11:46:14 CET 2019
+; Mon Dec 09 15:43:30 CET 2019
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -563,7 +563,10 @@
 ([proyecto_Class30000] of  Autor
 
 	(Difficulty Easy)
-	(LIbro [proyecto_Class30001])
+	(LIbro
+		[proyecto_Class30001]
+		[proyecto_Class60008]
+		[proyecto_Class60009])
 	(Name "Herbert George")
 	(Nationality UK)
 	(Surname "Wells"))
@@ -745,3 +748,123 @@
 ([proyecto_Class6] of  %3APAL-CONSTRAINT
 
 	(%3APAL-STATEMENT "(Predicate)"))
+
+([proyecto_Class60001] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class60002])
+	(Name "Patrick")
+	(Nationality EU)
+	(Surname "Rothfuss"))
+
+([proyecto_Class60002] of  Epic
+
+	(Language Easy)
+	(Pages 880)
+	(Popularity Critic)
+	(Title "El nombre del Viento")
+	(Writer [proyecto_Class60001])
+	(Year 2007))
+
+([proyecto_Class60003] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class60004])
+	(Name "Osamu")
+	(Nationality Japan)
+	(Surname "Dazai"))
+
+([proyecto_Class60004] of  Dark
+
+	(Language Medium)
+	(Pages 177)
+	(Popularity Critic)
+	(Title "Indigno de ser humano")
+	(Writer [proyecto_Class60003])
+	(Year 1948))
+
+([proyecto_Class60005] of  Autor
+
+	(Difficulty Hard)
+	(LIbro [proyecto_Class60006])
+	(Name "Malka")
+	(Nationality EU)
+	(Surname "Older"))
+
+([proyecto_Class60006] of  Cyberpunk
+
+	(Language Hard)
+	(Pages 380)
+	(Popularity Critic)
+	(Title "Infomocracy")
+	(Writer [proyecto_Class60005])
+	(Year 2016))
+
+([proyecto_Class60008] of  Science+Fiction
+
+	(Language Medium)
+	(Pages 84)
+	(Popularity Critic)
+	(Title "The time machine")
+	(Writer [proyecto_Class30000])
+	(Year 1895))
+
+([proyecto_Class60009] of  Spooky
+
+	(Language Medium)
+	(Pages 209)
+	(Popularity Critic)
+	(Title "The island of Doctor Moreau")
+	(Writer [proyecto_Class30000])
+	(Year 1896))
+
+([proyecto_Class60010] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class60011])
+	(Name "Yusuke")
+	(Nationality Japan)
+	(Surname "Murata"))
+
+([proyecto_Class60011] of  Superheores
+
+	(Language Easy)
+	(Pages 208)
+	(Popularity Critic)
+	(Title "One punch Man")
+	(Writer [proyecto_Class60010])
+	(Year 2012))
+
+([proyecto_Class60012] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class60013])
+	(Name "Negi")
+	(Nationality Japan)
+	(Surname "Haruba"))
+
+([proyecto_Class60013] of  Romantic
+
+	(Language Medium)
+	(Pages 192)
+	(Popularity Critic)
+	(Title "Go-toubun-no-hanayome")
+	(Writer [proyecto_Class60012])
+	(Year 2017))
+
+([proyecto_Class60014] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class60015])
+	(Name "Akihito")
+	(Nationality Japan)
+	(Surname "Tsukushi"))
+
+([proyecto_Class60015] of  Adventure
+
+	(Language Easy)
+	(Pages 196)
+	(Popularity Critic)
+	(Title "Made in abyss")
+	(Writer [proyecto_Class60014])
+	(Year 2012))
