@@ -23,10 +23,7 @@ los tipos de libros que prefiere el lector"
 4. Number of pages
 5. Nationality / What languages do you understand?
 6. Do you like some of these writers?
-7. How do you choose your books ?
-	1. Recomendacion
-	2. Interés (Genero / Sinopsis / Autor)
-	3. Influenciable
+
 
 ### RULES
 
