@@ -109,7 +109,7 @@ los tipos de libros que prefiere el lector"
 8. POPULAR:
 ```
 	+ BEGINNER AND REGULAR
-	+ AMATEUR AND DEDICATED
+	+ AMATEUR AND CASUAL OR OCASIONALLY
 ```
 
 8. CRITIC
@@ -121,7 +121,7 @@ los tipos de libros que prefiere el lector"
 9. NORMAL
 ```
 	+ ADVANCED AND REGULAR
-	+ AMATEUR AND CASUAL OR OCASIONALLY
+	+ AMATEUR AND DEDICATED
 ```
 10. NON-POPULAR
 ```
