@@ -442,7 +442,6 @@
 	(bind ?k 1)
 	(printout t "We recomend you the following list of books" crlf)
 	(if (eq (nth$ 1 ?t) "") then
-	;(printout t ?t crlf)
 	(bind ?k (+ ?k 1)))
 	(while (<= ?i 3)
 	do
