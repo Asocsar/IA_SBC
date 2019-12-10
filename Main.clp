@@ -332,8 +332,8 @@
     else (bind ?cond (member ?s ?selec)))
     (if ?cond then
     (modify ?f (titles ?t_ini ?t ?t_end) (number ?n_ini (+ ?n 1) ?n_end))
-    (modify ?g (st ?gen ?t))
-    (assert (final_aut))))
+    (modify ?g (st ?gen ?t)))
+		(assert (final_aut)))
 
 
 	(defrule puntuaje_paginas_refinamiento
@@ -399,9 +399,9 @@
 		(loop-for-count (?i 2 (length$ ?temp)) do (bind ?numeros ?numeros 0.0))
     (assert (generos_filtro))
     (assert (autores_filtro))
-    (assert (filtro (titles ?temp) (number ?numeros)))
+    (assert (filtro (titles ?temp) (number ?numeros))))
   (assert (solution (titles ?values)))
- ))
+ )
 
 ;;;****************************
 ;;;* INITIAL AND END OF THE PROGRAM *
@@ -423,6 +423,8 @@
   (assert (stop_gen (st "none")))
 	(assert (stop_pag (st "none")))
   (assert (autores (name "")))
+	(assert (autoresf (name "")))
+	(assert (generof (titles None)))
   (bind $?i 1)
   (printout t crlf crlf)
   (printout t "System of Recomendation for Books")
@@ -431,16 +433,30 @@
 (defrule end ""
 	(declare (salience -10))
 	?l <- (solution (titles $?t))
-  (test (eq 3 (length$ ?t)))
+	?f <- (filtro (titles $?tit) (number $?num))
+	(final_aut $?)
+	(final_gen $?)
+	(final_pages $?)
 	=>
 	(bind ?i 1)
+	(bind ?k 1)
 	(printout t "We recomend you the following list of books" crlf)
+	(if (not(eq (nth$ 1 ?t) "")) then
+	(printout t ?t crlf)
+	(bind ?i (+ ?i 1))
 	(while (<= ?i 3)
 	do
-	(printout t (nth$ ?i ?t) crlf)
+	(printout t (nth$ ?k ?tit) crlf)
 	(bind ?i (+ ?i 1))
-	)
-	)
+	(bind ?k (+ ?k 1)))
+	else
+	(while (<= ?i 3)
+	do
+	(if (<= ?k (length$ ?t)) then (printout t (nth$ ?k ?t) crlf))
+	(if (> ?k (length$ ?t)) then (printout t (nth$ (- ?k (length$ ?t)) ?tit) crlf))
+	(bind ?k (+ 1 ?k))
+	(bind ?i (+ 1 ?i))
+	)))
 
   (defrule crea_llista ""
     (difficultad $?)
