@@ -144,6 +144,7 @@
 
 (deftemplate stop_gen (multislot st (type STRING)))
 (deftemplate stop_aut (multislot st (type STRING)))
+(deftemplate stop_pag (multislot st (type STRING)))
 (deftemplate autores (multislot name (type STRING)))
 (deftemplate generof (multislot titles (type SYMBOL)))
 (deftemplate autoresf (multislot name (type STRING)))
@@ -288,6 +289,7 @@
   (defrule ordena-llista_ref
     (final_aut $?)
     (final_gen $?)
+		(final_pages $?)
   	?indice <- (filtro (titles $?t_ini ?t1 ?t2 $?t_end) (number $?n_ini ?n1 ?n2 $?n_end))
   	(test (eq (length$ ?t_ini) (length$ ?n_ini)))
   	(test (< ?n1 ?n2))
@@ -332,6 +334,23 @@
     (modify ?f (titles ?t_ini ?t ?t_end) (number ?n_ini (+ ?n 1) ?n_end))
     (modify ?g (st ?gen ?t))
     (assert (final_aut))))
+
+
+	(defrule puntuaje_paginas_refinamiento
+		(declare (salience 10))
+		?pag <- (npages (num ?npaginas))
+		?ind <- (filtro (titles $?t_ini ?t $?t_fin) (number $?n_ini ?n $?n_end))
+		(object (Title ?tit) (Pages ?p))
+		?g <- (stop_pag (st $?gen))
+		(test (not (member ?t ?gen)))
+		(test (eq ?tit ?t))
+		=>
+		(bind ?diff (- ?p ?npaginas))
+		(if (< ?diff 0) then (bind ?diff (* ?diff -1)))
+		(modify ?ind (titles ?t_ini ?t ?t_fin) (number ?n_ini (+ ?n (- 1 (/ ?diff 5000))) ?n_end))
+		(modify ?g (st ?gen ?t))
+		(assert (final_pages))
+		)
 
 ;book1 5 book2 4 book3 3 book4 3 book5 2
 
@@ -402,6 +421,7 @@
   (assert (initial))
   (assert (stop_aut (st "none")))
   (assert (stop_gen (st "none")))
+	(assert (stop_pag (st "none")))
   (assert (autores (name "")))
   (bind $?i 1)
   (printout t crlf crlf)
@@ -600,12 +620,15 @@
 			(autores (name $?names))
 			=>
 			(bind ?names ?names "None")
-			(bind $?symbols None)
+			(bind $?symbols (sym-cat(nth$ 1 ?names)))
 			(printout t "Do you like any of these writers?" crlf)
-			(loop-for-count (?i 1 (length$ ?names)) do
+			(loop-for-count (?i 2 (length$ ?names)) do
 				(printout t (nth$ ?i ?names) crlf)
 				(bind ?symbols ?symbols (sym-cat(nth$ ?i ?names))))
 			(bind ?response (ask-question "" ?symbols))
+			(bind ?pos (member ?response ?symbols))
+			(bind ?symbols (delete$ ?symbols ?pos ?pos))
+			(bind ?names (delete$ ?names ?pos ?pos))
 			(if (not (eq ?response None)) then
         (bind ?aux (str-cat ?response))
 				(bind $?result ?aux)
@@ -614,6 +637,9 @@
 					(loop-for-count (?i 1 (length$ ?names)) do
 						(printout t (nth$ ?i ?names) crlf))
         	(bind ?response (ask-question "" ?symbols))
+					(bind ?pos (member ?response ?symbols))
+					(bind ?symbols (delete$ ?symbols ?pos ?pos))
+					(bind ?names (delete$ ?names ?pos ?pos))
         	(if (not (eq ?response None)) then
 						(bind ?aux (str-cat ?response))
 						(bind ?result ?result ?aux)))
@@ -623,6 +649,7 @@
 
     (defrule genres ""
       (generos_filtro $?)
+			(not (no_more_genero $?))
       ?l <- (filtro (titles $?t) (number $?num))
       =>
       (bind ?instancias (find-all-instances ((?o Libro_Fantasia)) (member (send ?o get-Title) ?t)))
@@ -636,6 +663,8 @@
 			(loop-for-count (?i 1 (length$ ?gen)) do
 				(printout t (nth$ ?i ?gen) crlf))
       (bind ?response (ask-question "" ?gen))
+			(bind ?pos (member ?response ?gen))
+			(bind ?gen (delete$ ?gen ?pos ?pos))
       (if (not (eq ?response None)) then
 				(bind $?result ?response)
       	(while (not (eq ?response None)) do
@@ -643,8 +672,11 @@
 					(loop-for-count (?i 1 (length$ ?gen)) do
 						(printout t (nth$ ?i ?gen) crlf))
         	(bind ?response (ask-question "" ?gen))
+					(bind ?pos (member ?response ?gen))
+					(bind ?gen (delete$ ?gen ?pos ?pos))
         	(if (not (eq ?response None)) then (bind ?result ?result ?response)))
-      	(assert (generof (titles ?result))))
+      	(assert (generof (titles ?result)))
+				(assert (no_more_genero)))
     )
 
    ;ASSERT LIKES EASY LANGUAGE IF:
