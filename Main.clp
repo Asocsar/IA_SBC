@@ -376,11 +376,13 @@
   (if (eq (type ?values) STRING) then (bind ?end 2) else (bind ?end (- 3 (length$ ?values))))
 
   (if (<> ?end 0) then
+		(bind $?numeros 0.0)
+		(loop-for-count (?i 2 (length$ ?temp)) do (bind ?numeros ?numeros 0.0))
     (assert (generos_filtro))
     (assert (autores_filtro))
-    (assert (filtro (titles ?temp))))
+    (assert (filtro (titles ?temp) (number ?numeros)))
   (assert (solution (titles ?values)))
- )
+ ))
 
 ;;;****************************
 ;;;* INITIAL AND END OF THE PROGRAM *
@@ -400,7 +402,7 @@
   (assert (initial))
   (assert (stop_aut (st "none")))
   (assert (stop_gen (st "none")))
-  (assert (autores ))
+  (assert (autores (name "")))
   (bind $?i 1)
   (printout t crlf crlf)
   (printout t "System of Recomendation for Books")
@@ -584,7 +586,10 @@
 		  (object (name ?w) (Surname ?sur))
       =>
 			(bind ?aut (find-fact ((?a autores)) TRUE))
-			(bind $?names (fact-slot-value (nth$ 1 ?aut) name ))
+			(bind $?aut (nth$ 1 ?aut))
+			;(printout t ?aut crlf)
+			(bind $?names (fact-slot-value ?aut name ))
+			;(printout t ?names crlf)
 			(if (not (member ?sur ?names)) then
 			(bind ?names ?names ?sur)
 			(modify ?aut (name ?names)))
@@ -599,14 +604,15 @@
 			(loop-for-count (?i 1 (length$ ?names)) do
 				(printout t (nth$ ?i ?names) crlf))
 			(bind ?response (ask-question "" ?names))
-			(if (not (eq ?response "None")) then (bind $?result ?response))
-      (while (not (eq ?response "None")) do
-        (printout t "Do you like any other writers?" crlf)
-				(loop-for-count (?i 1 (length$ ?names)) do
-					(printout t (nth$ ?i ?names) crlf))
-        (bind ?response (ask-question "" ?names))
-        (if (not (eq ?response "None")) then (bind ?result ?result ?response)))
-      (assert (autoresf (name ?result)))
+			(if (not (eq ?response "None")) then
+				(bind $?result ?response)
+      	(while (not (eq ?response "None")) do
+        	(printout t "Do you like any other writers?" crlf)
+					(loop-for-count (?i 1 (length$ ?names)) do
+						(printout t (nth$ ?i ?names) crlf))
+        	(bind ?response (ask-question "" ?names))
+        	(if (not (eq ?response "None")) then (bind ?result ?result ?response)))
+      	(assert (autoresf (name ?result))))
 			)
 
 
@@ -614,9 +620,9 @@
       (generos_filtro $?)
       ?l <- (filtro (titles $?t) (number $?num))
       =>
-      (bind $?gen None)
-      (bind ?instancias (find-all-instances ((?o Libro_Fantasia)) (member (send ?o get-Title) ?t))
-			(loop-for-count (?i 1 (length$ ?instancias)) do
+      (bind ?instancias (find-all-instances ((?o Libro_Fantasia)) (member (send ?o get-Title) ?t)))
+			(bind $?gen None (type (nth$ 1 ?instancias)))
+			(loop-for-count (?i 2 (length$ ?instancias)) do
 			  (if (not (member(type (nth$ ?i ?instancias)) ?gen)) then
 					(bind ?gen ?gen (type (nth$ ?i ?instancias)))
 				)
@@ -625,15 +631,16 @@
 			(loop-for-count (?i 1 (length$ ?gen)) do
 				(printout t (nth$ ?i ?gen) crlf))
       (bind ?response (ask-question "" ?gen))
-      (if (not (eq ?response None)) then (bind $?result ?response))
-      (while (not (eq ?response None)) do
-        (printout t "Do you have any other genre preferences?" crlf)
-				(loop-for-count (?i 1 (length$ ?gen)) do
-					(printout t (nth$ ?i ?gen) crlf))
-        (bind ?response (ask-question "" ?gen))
-        (if (not (eq ?response None)) then (bind ?result ?result ?response)))
-      (assert (generof (titles ?result)))
-    ))
+      (if (not (eq ?response None)) then
+				(bind $?result ?response)
+      	(while (not (eq ?response None)) do
+        	(printout t "Do you have any other genre preferences?" crlf)
+					(loop-for-count (?i 1 (length$ ?gen)) do
+						(printout t (nth$ ?i ?gen) crlf))
+        	(bind ?response (ask-question "" ?gen))
+        	(if (not (eq ?response None)) then (bind ?result ?result ?response)))
+      	(assert (generof (titles ?result))))
+    )
 
    ;ASSERT LIKES EASY LANGUAGE IF:
    ;IF YOUNG AND OCASIONALLY OR CASUAL
