@@ -1,8 +1,154 @@
+(defclass Libro_Fantasia
+	(is-a USER)
+	(role concrete)
+	(single-slot Title
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Year
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Pages
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot Writer
+		(type INSTANCE)
+;+		(allowed-classes Autor)
+		(cardinality 1 2)
+		(create-accessor read-write))
+	(single-slot Language
+		(type SYMBOL)
+		(allowed-values Easy Medium Hard)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Popularity
+		(type SYMBOL)
+		(allowed-values Popular Critic Best_Seller Normal Non-Popular)
+;+		(cardinality 1 1)
+		(create-accessor read-write)))
+
+(defclass Epic
+	(is-a Libro_Fantasia)
+	(role concrete))
+
+(defclass Fabula
+	(is-a Libro_Fantasia)
+	(role concrete))
+
+(defclass Magic
+	(is-a Libro_Fantasia)
+	(role concrete))
+
+(defclass Adventure
+	(is-a Libro_Fantasia)
+	(role concrete))
+
+(defclass Cyberpunk
+	(is-a Libro_Fantasia)
+	(role concrete))
+
+(defclass Superheores
+	(is-a Libro_Fantasia)
+	(role concrete))
+
+(defclass Sword_and_Sorcery
+	(is-a Libro_Fantasia)
+	(role concrete))
+
+(defclass Spooky
+	(is-a Libro_Fantasia)
+	(role concrete))
+
+(defclass Romantic
+	(is-a Libro_Fantasia)
+	(role concrete))
+
+(defclass Dark
+	(is-a Libro_Fantasia)
+	(role concrete))
+
+(defclass Science+Fiction
+	(is-a Libro_Fantasia)
+	(role concrete))
+
+(defclass Persona
+	(is-a USER)
+	(role concrete)
+	(single-slot Surname
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Nationality
+		(type SYMBOL)
+		(allowed-values Spain Norway EU France UK Japan Greece)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot Name
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write)))
+
+(defclass Autor
+	(is-a Persona)
+	(role concrete)
+	(single-slot Difficulty
+		(type SYMBOL)
+		(allowed-values Easy Medium Hard)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot LIbro
+		(type INSTANCE)
+;+		(allowed-classes Libro_Fantasia)
+		(cardinality 1 ?VARIABLE)
+		(create-accessor read-write)))
+
+(defclass Lector
+	(is-a Persona)
+	(role concrete)
+	(single-slot Frequency
+		(type SYMBOL)
+		(allowed-values Daily Ocasionally Whenever)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot Moment
+		(type SYMBOL)
+		(allowed-values Morning Night Evening)
+		(cardinality 1 ?VARIABLE)
+		(create-accessor read-write))
+	(single-slot Taste
+		(type SYMBOL)
+		(allowed-values Popular Critic Best_Seller National Foreigner)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot Age
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot Place
+		(type SYMBOL)
+		(allowed-values Home Public_Transport Public_Space)
+		(cardinality 1 ?VARIABLE)
+		(create-accessor read-write))
+	(multislot Friend
+		(type INSTANCE)
+;+		(allowed-classes Persona)
+		(create-accessor read-write)))
+
+
 
 ;;;****************************
 ;;;* ESTRUCTURAS *
 ;;;****************************
 
+(deftemplate stop_gen (multislot st (type STRING)))
+(deftemplate stop_aut (multislot st (type STRING)))
+(deftemplate autores (multislot name (type STRING)))
+(deftemplate generof (multislot titles (type SYMBOL)))
+(deftemplate autoresf (multislot name (type STRING)))
+(deftemplate solution (multislot titles (type STRING)))
+(deftemplate filtro (multislot titles (type STRING)) (multislot number (type FLOAT) (default 0.0)))
 (deftemplate lista (multislot name (type STRING)) (multislot number (type INTEGER)))
 (deftemplate books (slot name (type STRING)) (slot puntuaje (type INTEGER) (default 0)))
 (deftemplate likes (slot id (type SYMBOL)))
@@ -15,10 +161,11 @@
 (deftemplate nationality (slot id (type SYMBOL)))
 (deftemplate writers (multislot name (type SYMBOL)))
 
+
+
 ;;;****************************
 ;;;* FUNCTIONS *
 ;;;****************************
-
 
 (deffunction ask-integer (?question ?init ?ende)
    (printout t ?question crlf)
@@ -130,12 +277,110 @@
 
 
 (defrule ordena-llista
+  (declare (salience 10))
 	?indice <- (lista (name $?t_ini ?t1 ?t2 $?t_end) (number $?n_ini ?n1 ?n2 $?n_end))
 	(test (eq (length$ ?t_ini) (length$ ?n_ini)))
 	(test (< ?n1 ?n2))
 	=>
 	(assert (lista (name ?t_ini ?t2 ?t1 ?t_end) (number ?n_ini ?n2 ?n1 ?n_end)))
 	(retract ?indice))
+
+  (defrule ordena-llista_ref
+    (final_aut $?)
+    (final_gen $?)
+  	?indice <- (filtro (titles $?t_ini ?t1 ?t2 $?t_end) (number $?n_ini ?n1 ?n2 $?n_end))
+  	(test (eq (length$ ?t_ini) (length$ ?n_ini)))
+  	(test (< ?n1 ?n2))
+  	=>
+  	(assert (filtro (titles ?t_ini ?t2 ?t1 ?t_end) (number ?n_ini ?n2 ?n1 ?n_end)))
+  	(retract ?indice))
+
+(defrule puntuaje_genros_refinamiento
+  (declare (salience 10))
+  (generof (titles $?selec))
+  ?f <- (filtro (titles $?t_ini ?t $?t_end) (number $?n_ini ?n $?n_end))
+  ?o <- (object (Title ?tit))
+  ?g <- (stop_gen (st $?gen))
+  (test (not (member ?t ?gen)))
+  (test (eq ?tit ?t))
+  (test (or (eq (length$ ?t_ini) (length$ ?n_ini)) (eq (length$ ?t_end) (length$ ?n_end))))
+  =>
+  (bind ?cond FALSE)
+  (if (eq (type ?selec) SYMBOL) then (bind ?cond (eq ?selec (type ?o)))
+  else (bind ?cond (member (type ?o) ?selec)))
+  (if ?cond then
+  (modify ?f (titles ?t_ini ?t ?t_end) (number ?n_ini (+ ?n 1) ?n_end))
+  (modify ?g (st ?gen ?t)))
+  (assert (final_gen)))
+
+
+  (defrule puntuaje_autores_refinamiento
+    (declare (salience 10))
+    (autoresf (name $?selec))
+    ?f <- (filtro (titles $?t_ini ?t $?t_end) (number $?n_ini ?n $?n_end))
+    ?o <- (object (Title ?tit) (Writer ?w))
+    (object (name ?w) (Surname ?s))
+    ?g <- (stop_aut (st $?gen))
+    (test (not (member ?t ?gen)))
+    (test (eq ?tit ?t))
+    (test (or (eq (length$ ?t_ini) (length$ ?n_ini)) (eq (length$ ?t_end) (length$ ?n_end))) )
+    =>
+    (bind ?cond FALSE)
+    (if (eq (type ?selec) STRING) then (bind ?cond (eq ?selec ?s))
+    else (bind ?cond (member ?s ?selec)))
+    (if ?cond then
+    (modify ?f (titles ?t_ini ?t ?t_end) (number ?n_ini (+ ?n 1) ?n_end))
+    (modify ?g (st ?gen ?t))
+    (assert (final_aut))))
+
+;book1 5 book2 4 book3 3 book4 3 book5 2
+
+;size ?t + 1 <= 3  --> 0 + 1 --> ?t (book1 )
+;size ?t + 1 <= 3  --> 1 + 1 --> ?t (book1 book2)
+;size ?t + 1 <= 3  --> 2 + 2 --> ?t (book1 book2 book4)
+
+
+
+(defrule filtracion ""
+  (declare (salience 5))
+  (filter $?)
+  ?l <- (lista (name $?titles) (number $?puntuajes))
+ =>
+  (bind ?i 1)
+  (bind ?finish FALSE)
+  (bind $?values "")
+  (while (not ?finish) do
+  (bind $?temp "")
+  (bind ?diferent TRUE)
+    (while (eq ?diferent TRUE) do
+      (if (eq ?temp "") then
+        (bind ?temp (nth$ ?i ?titles))
+      else
+      (bind ?temp ?temp (nth$ ?i ?titles)))
+      (bind ?le (<= (+ ?i 1) (length$ ?titles)))
+      (bind ?diferent (<= ?i (length$ ?titles)))
+      (if ?le then (bind ?diferent (and ?diferent (eq (nth$ (+ ?i 1) ?puntuajes) (nth$ ?i ?puntuajes)))))
+      (bind ?i (+ ?i 1))
+    )
+    (bind ?v1 "")
+    (bind ?v2 "")
+    (if (eq (type ?values) STRING ) then (bind ?v1 1) else (bind ?v1 (length$ ?values)))
+    (if (eq (type ?temp) STRING ) then (bind ?v2 1) else (bind ?v2 (length$ ?temp)))
+    (if (> (+ ?v2 ?v1) 3) then (bind ?finish TRUE)
+    else
+    (if (eq ?values "") then (bind ?values ?temp)
+      else
+      (bind ?values ?values ?temp))))
+
+  (bind ?end "")
+  (if (eq (type ?values) STRING) then (bind ?end 2) else (bind ?end (- 3 (length$ ?values))))
+
+  (if (<> ?end 0) then
+    (assert (generos_filtro))
+    (assert (autores_filtro))
+    (assert (filtro (titles ?temp))))
+  (assert (solution (titles ?values)))
+ )
 
 ;;;****************************
 ;;;* INITIAL AND END OF THE PROGRAM *
@@ -153,6 +398,9 @@
   =>
   (load-instances "Instancies.pins")
   (assert (initial))
+  (assert (stop_aut (st "none")))
+  (assert (stop_gen (st "none")))
+  (assert (autores ))
   (bind $?i 1)
   (printout t crlf crlf)
   (printout t "System of Recomendation for Books")
@@ -160,11 +408,10 @@
 
 (defrule end ""
 	(declare (salience -10))
-  (final $?)
-	?l <- (lista (name $?t) (number $?n))
+	?l <- (solution (titles $?t))
+  (test (eq 3 (length$ ?t)))
 	=>
 	(bind ?i 1)
-	(printout t (length$ ?t) crlf)
 	(printout t "We recomend you the following list of books" crlf)
 	(while (<= ?i 3)
 	do
@@ -191,7 +438,7 @@
 		(bind ?i (+ ?i 1))
 		)
 		(assert (lista (name ?val1) (number ?val2)))
-    (assert (final)))
+    (assert (filter)))
 
 
   ;;;**********************************
@@ -270,7 +517,7 @@
         (case Japanese then (assert (likes (id Japan))))
         (case Greek then (assert (likes (id Greece)))))
 
-      (bind ?response (ask-question "Dou you speak another Language ? (Spanish/Norwegian/English/French/Japanese/Greek/None)" Spanish Norwegian English French Japanese Greek None))
+      (bind ?response (ask-question "Do you speak another Language ? (Spanish/Norwegian/English/French/Japanese/Greek/None)" Spanish Norwegian English French Japanese Greek None))
       (while (not (eq ?response None)) do
       (switch ?response
         (case Spanish then (assert (likes (id Spain))))
@@ -309,6 +556,8 @@
 
 		; 0 <= Nº OF BOOKS <= 5 -> BEGINNER
 		; 6 <= Nº OF BOOKS <= 15 -> AMATEUR
+    ;?l <- (filtro (titles $?t_ini ?t $?t_end) (number $?num_ini ?num $?num_end))
+    ;(test (eq (length$ ?t_ini) (length$ ?num_ini)))
 		; 15 <= Nº OF BOOKS -> ADVANCED
 		(defrule Number_books ""
 			(initial $?)
@@ -325,6 +574,66 @@
 				(assert(likes (id Advanced)))
 			))
 
+
+    (defrule autors ""
+			(declare (salience 10))
+      (autores_filtro $?)
+			?l <- (filtro (titles $?t) (number $?n))
+			?o <- (object (Title ?title) (Writer ?w))
+      (test (member ?title ?t))
+		  (object (name ?w) (Surname ?sur))
+      =>
+			(bind ?aut (find-fact ((?a autores)) TRUE))
+			(bind $?names (fact-slot-value (nth$ 1 ?aut) name ))
+			(if (not (member ?sur ?names)) then
+			(bind ?names ?names ?sur)
+			(modify ?aut (name ?names)))
+      )
+
+		(defrule autors_question ""
+			(autores_filtro $?)
+			(autores (name $?names))
+			=>
+			(bind ?names ?names "None")
+			(printout t "Do you like any of these writers?" crlf)
+			(loop-for-count (?i 1 (length$ ?names)) do
+				(printout t (nth$ ?i ?names) crlf))
+			(bind ?response (ask-question "" ?names))
+			(if (not (eq ?response "None")) then (bind $?result ?response))
+      (while (not (eq ?response "None")) do
+        (printout t "Do you like any other writers?" crlf)
+				(loop-for-count (?i 1 (length$ ?names)) do
+					(printout t (nth$ ?i ?names) crlf))
+        (bind ?response (ask-question "" ?names))
+        (if (not (eq ?response "None")) then (bind ?result ?result ?response)))
+      (assert (autoresf (name ?result)))
+			)
+
+
+    (defrule genres ""
+      (generos_filtro $?)
+      ?l <- (filtro (titles $?t) (number $?num))
+      =>
+      (bind $?gen None)
+      (bind ?instancias (find-all-instances ((?o Libro_Fantasia)) (member (send ?o get-Title) ?t))
+			(loop-for-count (?i 1 (length$ ?instancias)) do
+			  (if (not (member(type (nth$ ?i ?instancias)) ?gen)) then
+					(bind ?gen ?gen (type (nth$ ?i ?instancias)))
+				)
+			)
+      (printout t "Do you have any genre preferences?" crlf)
+			(loop-for-count (?i 1 (length$ ?gen)) do
+				(printout t (nth$ ?i ?gen) crlf))
+      (bind ?response (ask-question "" ?gen))
+      (if (not (eq ?response None)) then (bind $?result ?response))
+      (while (not (eq ?response None)) do
+        (printout t "Do you have any other genre preferences?" crlf)
+				(loop-for-count (?i 1 (length$ ?gen)) do
+					(printout t (nth$ ?i ?gen) crlf))
+        (bind ?response (ask-question "" ?gen))
+        (if (not (eq ?response None)) then (bind ?result ?result ?response)))
+      (assert (generof (titles ?result)))
+    ))
 
    ;ASSERT LIKES EASY LANGUAGE IF:
    ;IF YOUNG AND OCASIONALLY OR CASUAL
