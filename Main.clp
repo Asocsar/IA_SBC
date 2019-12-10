@@ -600,18 +600,23 @@
 			(autores (name $?names))
 			=>
 			(bind ?names ?names "None")
+			(bind $?symbols None)
 			(printout t "Do you like any of these writers?" crlf)
 			(loop-for-count (?i 1 (length$ ?names)) do
-				(printout t (nth$ ?i ?names) crlf))
-			(bind ?response (ask-question "" ?names))
-			(if (not (eq ?response "None")) then
-				(bind $?result ?response)
-      	(while (not (eq ?response "None")) do
+				(printout t (nth$ ?i ?names) crlf)
+				(bind ?symbols ?symbols (sym-cat(nth$ ?i ?names))))
+			(bind ?response (ask-question "" ?symbols))
+			(if (not (eq ?response None)) then
+        (bind ?aux (str-cat ?response))
+				(bind $?result ?aux)
+      	(while (not (eq ?response None)) do
         	(printout t "Do you like any other writers?" crlf)
 					(loop-for-count (?i 1 (length$ ?names)) do
 						(printout t (nth$ ?i ?names) crlf))
-        	(bind ?response (ask-question "" ?names))
-        	(if (not (eq ?response "None")) then (bind ?result ?result ?response)))
+        	(bind ?response (ask-question "" ?symbols))
+        	(if (not (eq ?response None)) then
+						(bind ?aux (str-cat ?response))
+						(bind ?result ?result ?aux)))
       	(assert (autoresf (name ?result))))
 			)
 
