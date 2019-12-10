@@ -441,22 +441,16 @@
 	(bind ?i 1)
 	(bind ?k 1)
 	(printout t "We recomend you the following list of books" crlf)
-	(if (not(eq (nth$ 1 ?t) "")) then
-	(printout t ?t crlf)
-	(bind ?i (+ ?i 1))
-	(while (<= ?i 3)
-	do
-	(printout t (nth$ ?k ?tit) crlf)
-	(bind ?i (+ ?i 1))
+	(if (eq (nth$ 1 ?t) "") then
+	;(printout t ?t crlf)
 	(bind ?k (+ ?k 1)))
-	else
 	(while (<= ?i 3)
 	do
 	(if (<= ?k (length$ ?t)) then (printout t (nth$ ?k ?t) crlf))
 	(if (> ?k (length$ ?t)) then (printout t (nth$ (- ?k (length$ ?t)) ?tit) crlf))
 	(bind ?k (+ 1 ?k))
 	(bind ?i (+ 1 ?i))
-	)))
+	))
 
   (defrule crea_llista ""
     (difficultad $?)
