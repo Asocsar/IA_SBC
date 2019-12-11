@@ -1,3 +1,8 @@
+; Wed Dec 11 13:48:03 CET 2019
+;
+;+ (version "3.5")
+;+ (build "Build 663")
+
 (defclass Libro_Fantasia
 	(is-a USER)
 	(role concrete)
@@ -49,7 +54,7 @@
 	(is-a Libro_Fantasia)
 	(role concrete))
 
-(defclass Superheores
+(defclass Superheroes
 	(is-a Libro_Fantasia)
 	(role concrete))
 
@@ -104,38 +109,6 @@
 		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write)))
 
-(defclass Lector
-	(is-a Persona)
-	(role concrete)
-	(single-slot Frequency
-		(type SYMBOL)
-		(allowed-values Daily Ocasionally Whenever)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Moment
-		(type SYMBOL)
-		(allowed-values Morning Night Evening)
-		(cardinality 1 ?VARIABLE)
-		(create-accessor read-write))
-	(single-slot Taste
-		(type SYMBOL)
-		(allowed-values Popular Critic Best_Seller National Foreigner)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Age
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Place
-		(type SYMBOL)
-		(allowed-values Home Public_Transport Public_Space)
-		(cardinality 1 ?VARIABLE)
-		(create-accessor read-write))
-	(multislot Friend
-		(type INSTANCE)
-;+		(allowed-classes Persona)
-		(create-accessor read-write)))
-
 
 
 ;;;****************************
@@ -153,6 +126,7 @@
 (deftemplate lista (multislot name (type STRING)) (multislot number (type INTEGER)))
 (deftemplate books (slot name (type STRING)) (slot puntuaje (type INTEGER) (default 0)))
 (deftemplate likes (slot id (type SYMBOL)))
+(deftemplate solution_abs (multislot id (type SYMBOL)))
 (deftemplate age (slot age (type INTEGER )))
 (deftemplate nbooks (slot num (type INTEGER)))
 (deftemplate nhours (slot num (type INTEGER)))
@@ -235,12 +209,16 @@
 (defrule puntuaje_genero ""
 	 (declare (salience 99))
 	 ?i <- (object (Title ?title))
-	 ?j <- (likes (id ?e))
-	 (test (eq (type ?i) ?e))
+	 ?j <- (solution_abs (id $?e))
+	 ?f <- (books (name ?n) (puntuaje ?p))
+	 (test (not (member (type ?i) ?e)))
+	 (test (eq ?n ?title))
 	 =>
-	 (bind ?st (nth$ 1 (find-fact ((?l books)) (eq ?l:name ?title))))
-	 (modify ?st (name ?title) (puntuaje (+ (fact-slot-value ?st puntuaje) 1) ) )
+	 (retract ?f)
+	 (send ?i delete)
 	 (assert (genero))
+	 ;(modify 1?st (name ?title) (puntuaje (+ (fact-slot-value ?st puntuaje) 1) ) )
+	 ;(assert (genero))
 	 )
 
 (defrule puntuaje_paginas ""
@@ -408,7 +386,7 @@
 ;;;****************************
 
 (defrule assertion ""
- (initial $?)
+ (initial1 $?)
  ?i <- (object (Title ?title))
  	=>
 	(assert (books (name ?title) ) ) )
@@ -418,7 +396,7 @@
 	(not (initial ?))
   =>
   (load-instances "Instancies.pins")
-  (assert (initial))
+  (assert (initial1))
   (assert (stop_aut (st "none")))
   (assert (stop_gen (st "none")))
 	(assert (stop_pag (st "none")))
@@ -480,7 +458,7 @@
 		; 18 <= AGE <= 30 -> ADULT
 		; 31 <= AGE -> OLD ADULT
 		(defrule Age_rule ""
-			(initial $?)
+			(initial2 $?)
 			=>
 			(bind ?response (ask-integer "How old are you? (INTEGER NUMBER) " 5 120))
 			(assert (age (age ?response)))
@@ -500,7 +478,7 @@
 		; 8 <= Nº HOURS <= 14 -> REGULAR
 		; 14 <= Nº HOURS -> DEDICATED
 		(defrule Number_hours ""
-			(initial $?)
+			(initial2 $?)
 			=>
 			(bind ?response (ask-integer "How many hours do you read per week? (INTEGER NUMBER) " 0  168))
 			(assert (nhours (num ?response)))
@@ -521,7 +499,7 @@
 		; 151 <= Nº PAGES <= 400 -> AVERAGE
 		; 400 > Nº PAGES -> LONG
 		(defrule Number_pages ""
-				(initial $?)
+				(initial2 $?)
 				=>
 				(bind ?response (ask-integer "About how many pages have the books you usually read? (INTEGER NUMBER) " 0 5000))
 				(assert (npages (num ?response)))
@@ -537,7 +515,7 @@
 
 
     (defrule nationality ""
-      (initial $?)
+      (initial2 $?)
       =>
       (bind ?response (ask-question "What Language do you speak ? (Spanish/Norwegian/English/French/Japanese/Greek)" Spanish Norwegian English French Japanese Greek ))
       (switch ?response
@@ -563,11 +541,11 @@
 
 
 		; NARRATIVE ACTION AND SETTING MEDIAVAL -> ADVENTURE, EPIC, MAGIC, SWORD_AND_SORCERY
-		; NARRATIVE DEVELOPMENT AND SETTING MEDIAVAL -> FABULA
+		; NARRATIVE DEVELOPMENT AND SETTING MEDIAVAL -> FABULA, ADVENTURE, MAGIC,Dark
 		; NARRATIVE ACTION AND SETTING URBAN -> SUPERHEROES, CYBERPUNK, SCI-FI
 		; NARRATIVE DEVELOPMENT AND SETTING URBAN -> ROMANTIC, DARK, SPOOKY
 		(defrule setting_rule ""
-				(initial $?)
+				(initial1 $?)
 				=>
 				(bind ?response1 (ask-question "What type of setting do you prefer on books, medieval/fantasy or modern/urban? (Medieval/Urban) " Medieval Urban))
 				(bind ?response2 (ask-question "What do you prefer in a story, a lot of action or more character and world development? (Action/Development)" Action Development ))
@@ -575,15 +553,15 @@
 				(assert (narrative (id ?response2)))
         (if (eq ?response1 Medieval) then
 					(if (eq ?response2 Action) then
-						(assert(likes (id Adventure)) (likes (id Epic)) (likes (id Magic)) (likes (id Sword_and_Sorcery)))
+						(assert (solution_abs (id Adventure Epic Magic Sword_and_Sorcery)))
 					else
-						(assert(likes (id Fabula))))
+						(assert(solution_abs (id Fabula Adventure Magic Spooky))))
 					else
 					(if (eq ?response2 Action) then
-					 (assert(likes (id Superheores)) (likes (id Cyberpunk)) (likes (id Science+Fiction)))
+					 (assert (solution_abs (id Superheroes Cyberpunk Science+Fiction Epic)))
 					 else
-					 (assert(likes (id Dark)) (likes (id Romantic)) (likes (id Spooky))))
-				))
+					 (assert (solution_abs (id Dark Romantic Spooky Cyberpunk))))
+				)(assert (initial2)))
 
 		; 0 <= Nº OF BOOKS <= 5 -> BEGINNER
 		; 6 <= Nº OF BOOKS <= 15 -> AMATEUR
@@ -591,7 +569,7 @@
     ;(test (eq (length$ ?t_ini) (length$ ?num_ini)))
 		; 15 <= Nº OF BOOKS -> ADVANCED
 		(defrule Number_books ""
-			(initial $?)
+			(initial2 $?)
 			=>
 			(bind ?response (ask-integer "How many books have you read? (INTEGER NUMBER) " 0 100))
 			(assert (nbooks (num ?response)))
