@@ -1,4 +1,4 @@
-; Mon Dec 09 15:43:30 CET 2019
+; Thu Dec 12 21:40:42 CET 2019
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -34,13 +34,13 @@
 ;+		(allowed-classes Libro_Fantasia)
 		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
-	(single-slot proyecto_Class7
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(single-slot Surname
 		(type STRING)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot proyecto_Class7
+		(type STRING)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot proyecto_Class4
 		(type STRING)
@@ -69,15 +69,15 @@
 		(type INSTANCE)
 ;+		(allowed-classes Persona)
 		(create-accessor read-write))
-	(single-slot Frequency
-		(type SYMBOL)
-		(allowed-values Daily Ocasionally Whenever)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(single-slot libros
 		(type SYMBOL)
 ;+		(allowed-parents Libro_Fantasia)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot Frequency
+		(type SYMBOL)
+		(allowed-values Daily Ocasionally Whenever)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot proyecto_Class13
 		(type STRING)
@@ -114,14 +114,14 @@
 		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot Pages
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(multislot Writer
 		(type INSTANCE)
 ;+		(allowed-classes Autor)
 		(cardinality 1 2)
+		(create-accessor read-write))
+	(single-slot Pages
+		(type INTEGER)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Language
 		(type SYMBOL)
@@ -154,7 +154,7 @@
 	(is-a Libro_Fantasia)
 	(role concrete))
 
-(defclass Superheores
+(defclass Superheroes
 	(is-a Libro_Fantasia)
 	(role concrete))
 
@@ -207,36 +207,4 @@
 		(type INSTANCE)
 ;+		(allowed-classes Libro_Fantasia)
 		(cardinality 1 ?VARIABLE)
-		(create-accessor read-write)))
-
-(defclass Lector
-	(is-a Persona)
-	(role concrete)
-	(single-slot Frequency
-		(type SYMBOL)
-		(allowed-values Daily Ocasionally Whenever)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Moment
-		(type SYMBOL)
-		(allowed-values Morning Night Evening)
-		(cardinality 1 ?VARIABLE)
-		(create-accessor read-write))
-	(single-slot Taste
-		(type SYMBOL)
-		(allowed-values Popular Critic Best_Seller National Foreigner)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Age
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Place
-		(type SYMBOL)
-		(allowed-values Home Public_Transport Public_Space)
-		(cardinality 1 ?VARIABLE)
-		(create-accessor read-write))
-	(multislot Friend
-		(type INSTANCE)
-;+		(allowed-classes Persona)
 		(create-accessor read-write)))
