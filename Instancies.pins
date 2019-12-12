@@ -1,4 +1,4 @@
-; Mon Dec 09 15:43:30 CET 2019
+; Wed Dec 11 13:47:37 CET 2019
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -108,6 +108,7 @@
 	(Pages 541)
 	(Popularity Popular)
 	(Title "Mistborn: The Final Empire")
+	(Writer [proyecto_Class20010])
 	(Year 2006))
 
 ([proyecto_Class20000] of  Autor
@@ -125,48 +126,6 @@
 	(Name "Barry")
 	(Nationality EU)
 	(Surname "Hughart"))
-
-([proyecto_Class20003] of  Lector
-
-	(Age 24)
-	(Frequency Whenever)
-	(Friend
-		[proyecto_Class20004]
-		[proyecto_Class20005])
-	(Moment Night)
-	(Name "Richard")
-	(Nationality Noruega)
-	(Place Home)
-	(Surname "Rogstad")
-	(Taste Foreigner))
-
-([proyecto_Class20004] of  Lector
-
-	(Age 21)
-	(Frequency Ocasionally)
-	(Friend
-		[proyecto_Class20003]
-		[proyecto_Class20005])
-	(Moment Night Morning)
-	(Name "Daniel")
-	(Nationality Espa%C3%B1a)
-	(Place Public_Transport Home)
-	(Surname "Cano")
-	(Taste Popular))
-
-([proyecto_Class20005] of  Lector
-
-	(Age 20)
-	(Frequency Ocasionally)
-	(Friend
-		[proyecto_Class20004]
-		[proyecto_Class20003])
-	(Moment Night Evening)
-	(Name "Marti")
-	(Nationality Espa%C3%B1a)
-	(Place Home Public_Transport)
-	(Surname "Vall")
-	(Taste Foreigner))
 
 ([proyecto_Class20006] of  Autor
 
@@ -588,7 +547,7 @@
 	(Nationality Japan)
 	(Surname "Segawa"))
 
-([proyecto_Class40001] of  Superheores
+([proyecto_Class40001] of  Superheroes
 
 	(Language Easy)
 	(Pages 388)
@@ -605,7 +564,7 @@
 	(Nationality EU)
 	(Surname "Lee"))
 
-([proyecto_Class40003] of  Superheores
+([proyecto_Class40003] of  Superheroes
 
 	(Language Easy)
 	(Pages 416)
@@ -622,7 +581,7 @@
 	(Nationality Japan)
 	(Surname "Horikoshi"))
 
-([proyecto_Class40005] of  Superheores
+([proyecto_Class40005] of  Superheroes
 
 	(Language Easy)
 	(Pages 192)
@@ -716,17 +675,6 @@
 	(Nationality UK)
 	(Surname "Christie"))
 
-([proyecto_Class40016] of  Lector
-
-	(Age 25)
-	(Frequency Daily)
-	(Moment Morning Night Evening)
-	(Name "Au")
-	(Nationality France)
-	(Place Home Public_Transport Public_Space)
-	(Surname "Tista")
-	(Taste Popular))
-
 ([proyecto_Class50001] of  Epic
 
 	(Language Hard)
@@ -744,7 +692,6 @@
 	(Title "The Return of the King")
 	(Writer [proyecto_Class20013])
 	(Year 1955))
-
 
 ([proyecto_Class60001] of  Autor
 
@@ -823,7 +770,7 @@
 	(Nationality Japan)
 	(Surname "Murata"))
 
-([proyecto_Class60011] of  Superheores
+([proyecto_Class60011] of  Superheroes
 
 	(Language Easy)
 	(Pages 208)
