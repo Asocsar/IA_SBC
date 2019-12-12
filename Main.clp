@@ -399,7 +399,7 @@
   (assert (stop_aut (st "none")))
   (assert (stop_gen (st "none")))
 	(assert (stop_pag (st "none")))
-  (assert (autores (name "")))
+  (assert (autores (name "") (surname "")))
 	(assert (autoresf (name "")))
 	(assert (generof (titles None)))
   (bind $?i 1)
