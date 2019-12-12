@@ -517,16 +517,30 @@
     (defrule nationality ""
       (initial2 $?)
       =>
-      (bind ?response (ask-question "What Language do you speak ? (Spanish/Norwegian/English/French/Japanese/Greek)" Spanish Norwegian English French Japanese Greek ))
+			(bind $?allowed Spanish Norwegian English French Japanese Greek)
+			(printout t "What Language do you speak?" crlf)
+      (loop-for-count (?i 1 (length$ ?allowed)) do
+				(printout t (nth$ ?i ?allowed) crlf)
+			)
+      (bind ?response (ask-question "" ?allowed ))
       (switch ?response
         (case Spanish then (assert (likes (id Spain))))
         (case Norwegian then (assert (likes (id Norway))))
         (case English then (assert (likes (id UK))) (assert (likes (id EU))))
         (case French then (assert (likes (id France))))
         (case Japanese then (assert (likes (id Japan))))
-        (case Greek then (assert (likes (id Greece)))))
-
-      (bind ?response (ask-question "Do you speak another Language ? (Spanish/Norwegian/English/French/Japanese/Greek/None)" Spanish Norwegian English French Japanese Greek None))
+        (case Greek then (assert (likes (id Greece))))
+			)
+			(bind ?pos (member ?response ?allowed))
+			(bind ?allowed (delete$ ?allowed ?pos ?pos))
+			(bind ?allowed ?allowed None)
+			(printout t "Do you speak any other languages?" crlf)
+			(loop-for-count (?i 1 (length$ ?allowed)) do
+				(printout t (nth$ ?i ?allowed) crlf)
+			)
+      (bind ?response (ask-question "" ?allowed))
+			(bind ?pos (member ?response ?allowed))
+			(bind ?allowed (delete$ ?allowed ?pos ?pos))
       (while (not (eq ?response None)) do
       (switch ?response
         (case Spanish then (assert (likes (id Spain))))
@@ -535,7 +549,13 @@
         (case French then (assert (likes (id France))))
         (case Japanese then (assert (likes (id Japan))))
         (case Greek then (assert (likes (id Greece)))))
-      (bind ?response (ask-question "Dou you speak another Language ? (Spanish/Norwegian/English/French/Japanese/Greek/None)" Spanish Norwegian English French Japanese Greek None))
+				(printout t "Do you speak any other languages?" crlf)
+				(loop-for-count (?i 1 (length$ ?allowed)) do
+					(printout t (nth$ ?i ?allowed) crlf)
+				)
+	      (bind ?response (ask-question "" ?allowed))
+				(bind ?pos (member ?response ?allowed))
+				(bind ?allowed (delete$ ?allowed ?pos ?pos))
       )
 			(assert (idioma))
       )
