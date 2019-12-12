@@ -118,7 +118,7 @@
 (deftemplate stop_gen (multislot st (type STRING)))
 (deftemplate stop_aut (multislot st (type STRING)))
 (deftemplate stop_pag (multislot st (type STRING)))
-(deftemplate autores (multislot name (type STRING)))
+(deftemplate autores (multislot name (type STRING)) (multislot surname (type STRING)))
 (deftemplate generof (multislot titles (type SYMBOL)))
 (deftemplate autoresf (multislot name (type STRING)))
 (deftemplate solution (multislot titles (type STRING)))
@@ -229,7 +229,6 @@
 	 =>
 	 (bind ?st (nth$ 1 (find-fact ((?l books)) (eq ?l:name ?title))))
 	 (modify ?st (name ?title) (puntuaje (+ (fact-slot-value ?st puntuaje) 1)))
-	 (assert (paginas))
 	 )
 
 (defrule puntuaje_popularidad ""
@@ -240,7 +239,7 @@
 	 =>
 	 (bind ?st (nth$ 1 (find-fact ((?l books)) (eq ?l:name ?title))))
 	 (modify ?st (name ?title) (puntuaje (+ (fact-slot-value ?st puntuaje) 1)))
-	 (assert (popularidad))
+
    )
 
 (defrule puntuaje_idioma ""
@@ -511,7 +510,8 @@
 				)
 				(if (> ?response 400) then
 					(assert(likes (id Long)))
-				))
+				)
+				)
 
 
     (defrule nationality ""
@@ -537,6 +537,7 @@
         (case Greek then (assert (likes (id Greece)))))
       (bind ?response (ask-question "Dou you speak another Language ? (Spanish/Norwegian/English/French/Japanese/Greek/None)" Spanish Norwegian English French Japanese Greek None))
       )
+			(assert (idioma))
       )
 
 
@@ -587,46 +588,60 @@
     (defrule autors ""
 			(declare (salience 10))
       (autores_filtro $?)
-			?l <- (filtro (titles $?t) (number $?n))
+			?l <- (filtro (titles $?t) (number $?num))
 			?o <- (object (Title ?title) (Writer ?w))
       (test (member ?title ?t))
-		  (object (name ?w) (Surname ?sur))
+		  (object (name ?w) (Name ?n) (Surname ?sur))
       =>
 			(bind ?aut (find-fact ((?a autores)) TRUE))
 			(bind $?aut (nth$ 1 ?aut))
 			;(printout t ?aut crlf)
 			(bind $?names (fact-slot-value ?aut name ))
+			(bind $?surnames (fact-slot-value ?aut surname ))
 			;(printout t ?names crlf)
-			(if (not (member ?sur ?names)) then
-			(bind ?names ?names ?sur)
-			(modify ?aut (name ?names)))
+			(if (and (not (member ?sur ?surnames)) (not (member ?n ?names))) then
+			(bind ?names ?names ?n)
+			(bind ?surnames ?surnames ?sur)
+			(modify ?aut (name ?names) (surname ?surnames)))
       )
 
 		(defrule autors_question ""
 			(autores_filtro $?)
-			(autores (name $?names))
+			(autores (name $?names) (surname $?surnames))
 			=>
-			(bind ?names ?names "None")
-			(bind $?symbols (sym-cat(nth$ 1 ?names)))
-			(printout t "Do you like any of these writers?" crlf)
+			(bind $?fullnames (str-cat (nth$ 1 ?names) " " (nth$ 1 ?surnames)))
 			(loop-for-count (?i 2 (length$ ?names)) do
-				(printout t (nth$ ?i ?names) crlf)
-				(bind ?symbols ?symbols (sym-cat(nth$ ?i ?names))))
+				(bind ?fullnames ?fullnames (str-cat (nth$ ?i ?names) " " (nth$ ?i ?surnames)))
+			)
+
+			(bind ?surnames ?surnames "None")
+			(bind ?fullnames ?fullnames "None")
+			(bind ?names ?names "None")
+			(bind $?symbols (sym-cat(nth$ 1 ?surnames)))
+			(printout t "Do you like any of these writers? (Write only the surname) "  crlf)
+			(printout t (nth$ 1 ?fullnames) crlf)
+			(loop-for-count (?i 2 (length$ ?fullnames)) do
+				(printout t (nth$ ?i ?fullnames) crlf)
+				(bind ?symbols ?symbols (sym-cat(nth$ ?i ?surnames))))
 			(bind ?response (ask-question "" ?symbols))
 			(bind ?pos (member ?response ?symbols))
 			(bind ?symbols (delete$ ?symbols ?pos ?pos))
 			(bind ?names (delete$ ?names ?pos ?pos))
+			(bind ?surnames (delete$ ?surnames ?pos ?pos))
+			(bind ?fullnames (delete$ ?fullnames ?pos ?pos))
 			(if (not (eq ?response None)) then
         (bind ?aux (str-cat ?response))
 				(bind $?result ?aux)
       	(while (not (eq ?response None)) do
-        	(printout t "Do you like any other writers?" crlf)
-					(loop-for-count (?i 1 (length$ ?names)) do
-						(printout t (nth$ ?i ?names) crlf))
+        	(printout t "Do you like any other writers? (Write only the surname) " crlf)
+					(loop-for-count (?i 1 (length$ ?fullnames)) do
+						(printout t (nth$ ?i ?fullnames) crlf))
         	(bind ?response (ask-question "" ?symbols))
 					(bind ?pos (member ?response ?symbols))
 					(bind ?symbols (delete$ ?symbols ?pos ?pos))
 					(bind ?names (delete$ ?names ?pos ?pos))
+					(bind ?surnames (delete$ ?surnames ?pos ?pos))
+					(bind ?fullnames (delete$ ?fullnames ?pos ?pos))
         	(if (not (eq ?response None)) then
 						(bind ?aux (str-cat ?response))
 						(bind ?result ?result ?aux)))
@@ -674,7 +689,8 @@
 				(or (and(likes (id Young)) (likes (id Ocasionally|Casual)))
 					(and(likes (id Adult)) (likes (id Ocasionally))))
 				=>
-				(assert (likes (id Easy))))
+				(assert (likes (id Easy)))
+				(assert (difficultad)))
 
 
 
@@ -692,7 +708,8 @@
 					(and (likes (id Amateur|Advanced)) (likes (id Ocasionally)))))
 				(and (likes (id Old_adult)) (likes (id Ocasionally|Casual)) (likes (id Beginner|Amateur))))
 				=>
-				(assert (likes (id Medium))))
+				(assert (likes (id Medium)))
+				(assert (difficultad)))
 
 
 
@@ -705,7 +722,8 @@
 				(and (likes (id Adult)) (likes (id Casual|Regular|Dedicated)) (likes (id Amateur|Advanced)))
 				(and (likes (id Old_adult)) (or (likes (id Regular|Dedicated)) (and (likes (id Ocasionally|Casual)) (likes (id Advanced))))))
 				=>
-				(assert(likes (id Hard))))
+				(assert(likes (id Hard)))
+				(assert (difficultad)))
 
 
 
@@ -716,7 +734,8 @@
 	 			(or (and (likes (id Amateur)) (likes (id Ocasionally)))
 				(and (likes (id Beginner)) (likes (id Ocasionally|Casual|Regular))))
 				=>
-				(assert (likes (id Short))))
+				(assert (likes (id Short)))
+				(assert(paginas)))
 
 
 
@@ -729,7 +748,8 @@
 				(and (likes (id Amateur)) (likes (id Casual|Regular)))
 				(and (likes (id Advanced)) (likes (id Ocasionally))))
 				=>
-				(assert (likes (id Average))))
+				(assert (likes (id Average)))
+				(assert(paginas)))
 
 
 
@@ -740,13 +760,16 @@
 	 			(or (and (likes (id Amateur)) (likes (id Dedicated)))
 				(and (likes (id Advanced)) (likes (id Casual|Regular|Dedicated))))
 				=>
-				(assert (likes (id Long))))
+				(assert (likes (id Long)))
+				(assert(paginas)))
 
    ;ASSERT LIKES BEST SELLER IF BEGINNER AND CASUAL OR OCASIONALLY
    (defrule best_seller ""
       (and (likes (id Beginner)) (likes (id Casual|Ocasionally)))
       =>
-      (assert (likes (id Best_Seller))))
+      (assert (likes (id Best_Seller)))
+			(assert (popularidad)))
+
 
    ;ASSERT LIKES POPULAR IF:
    ;IF BEGINNER AND REGULAR
@@ -756,7 +779,7 @@
       (and (likes (id Amateur)) (likes (id Casual|Ocasionally))))
       =>
       (assert (likes (id Popular)))
-      )
+      (assert (popularidad)))
 
    ;ASSERT LIKES CRITIC IF:
    ;IF BEGINNER AND DEDICATED
@@ -767,7 +790,8 @@
       (and (likes (id Amateur)) (likes (id Regular)))
       (and (likes (id Advanced)) (likes (id Casual|Ocasionally))))
       =>
-      (assert (likes (id Critic))))
+      (assert (likes (id Critic)))
+			(assert (popularidad)))
 
    ;ASSERT LIKES NORMAL IF:
    ;IF AMATEUR AND DEDICATED
@@ -776,10 +800,12 @@
       (or (and (likes (id Amateur)) (likes (id Dedicated)))
       (and (likes (id Advanced)) (likes (id Regular))))
       =>
-      (assert (likes (id Normal))))
+      (assert (likes (id Normal)))
+			(assert (popularidad)))
 
    ;ASSERT LIKES IF ADVANCED AND DEDICATED
    (defrule non_popular ""
       (and (likes (id Advanced)) (likes (id Dedicated)))
       =>
-      (assert (likes (id Non-Popular))))
+      (assert (likes (id Non-Popular)))
+			(assert (popularidad)))
