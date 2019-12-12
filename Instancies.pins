@@ -1,4 +1,4 @@
-; Wed Dec 11 13:47:37 CET 2019
+; Thu Dec 12 21:40:42 CET 2019
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -139,9 +139,9 @@
 
 	(Difficulty Medium)
 	(LIbro [proyecto_Class20064])
-	(Name "Arturo")
+	(Name "Arturo Perez")
 	(Nationality Spain)
-	(Surname "Perez-Reverte"))
+	(Surname "Reverte"))
 
 ([proyecto_Class20008] of  Autor
 
@@ -205,17 +205,17 @@
 
 	(Difficulty Easy)
 	(LIbro [proyecto_Class20057])
-	(Name "Vicente J Valera")
+	(Name "Vicente J Valera Gomez de la")
 	(Nationality Spain)
-	(Surname "Gomez de la Pena"))
+	(Surname "Pena"))
 
 ([proyecto_Class20017] of  Autor
 
 	(Difficulty Easy)
 	(LIbro [proyecto_Class20057])
-	(Name "Juan")
+	(Name "Juan Copete")
 	(Nationality Spain)
-	(Surname "Copete Fernandez"))
+	(Surname "Fernandez"))
 
 ([proyecto_Class20018] of  Autor
 
@@ -611,9 +611,9 @@
 
 	(Difficulty Medium)
 	(LIbro [proyecto_Class40009])
-	(Name "Philip")
+	(Name "Philip Kindred")
 	(Nationality EU)
-	(Surname "K. Dick"))
+	(Surname "Dick"))
 
 ([proyecto_Class40009] of  Cyberpunk
 
