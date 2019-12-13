@@ -422,6 +422,8 @@
 	(bind ?k (+ ?k 1)))
 	(while (<= ?i 3)
 	do
+	(printout t ?i)
+	(printout t " ")
 	(if (<= ?k (length$ ?t)) then (printout t (nth$ ?k ?t) crlf))
 	(if (> ?k (length$ ?t)) then (printout t (nth$ (- ?k (length$ ?t)) ?tit) crlf))
 	(bind ?k (+ 1 ?k))
