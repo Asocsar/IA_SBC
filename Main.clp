@@ -369,7 +369,9 @@
 		(loop-for-count (?i 2 (length$ ?temp)) do (bind ?numeros ?numeros 0.0))
     (assert (generos_filtro))
     (assert (autores_filtro))
-    (assert (filtro (titles ?temp) (number ?numeros))))
+    (assert (filtro (titles ?temp) (number ?numeros)))
+		else
+		(assert (filtro (titles))))
   (assert (solution (titles ?values)))
  )
 
@@ -384,11 +386,40 @@
 	(assert (books (name ?title) ) ) )
 
 
+	;(deftemplate prb_lan (multislot mop (type SYMBOL)))
+	(deftemplate prb_ty (multislot mop (type SYMBOL)))
+
+(defrule probando
+	(declare (salience 2000))
+	(prueba $?)
+	?o <- (object (Title ?tit) (Writer ?w) (Year ?y) (Pages ?pag))
+	?p <- (object (name ?w) (Nationality ?nat))
+	;(prb_lan (mop $?v1))
+	(prb_ty (mop $?v2))
+	;(test (< ?y 2000))
+	;(test (or (not (member ?nat ?v1)) (not (member (type ?o) ?v2))))
+	=>
+	;(printout t ?tit crlf)
+	;(printout t (type ?o) crlf)
+	;(printout t ?y crlf)
+	(if (or (not (> ?pag 250)) (not (member (type ?o) ?v2))) then
+	;(printout t "SI" crlf)
+	(send ?o delete)
+	;else
+	;(printout t "NO" crlf)
+	)
+	;else
+	;(if (not (member ?nat ?v1) ) then (send ?o delete)) )
+	;(send ?p delete)
+	(assert (initial1)))
+
 (defrule system-banner ""
 	(not (initial ?))
   =>
   (load-instances "Instancies.pins")
-  (assert (initial1))
+  (assert (prueba))
+	;(assert (prb_lan (mop Fabula Romantic Science+Fiction)))
+	(assert (prb_ty (mop Magic Cyberpunk Spooky)))
   (assert (stop_aut (st "none")))
   (assert (stop_gen (st "none")))
 	(assert (stop_pag (st "none")))
@@ -404,9 +435,7 @@
 	(declare (salience -10))
 	?l <- (solution (titles $?t))
 	?f <- (filtro (titles $?tit) (number $?num))
-	(final_aut $?)
-	(final_gen $?)
-	(final_pages $?)
+	(test (or (member$ final_aut (get-deftemplate-list)) (member$ final_gen (get-deftemplate-list)) (member$ final_pages (get-deftemplate-list)) (eq (length$ ?t) 3)))
 	=>
 	(bind ?i 1)
 	(bind ?k 1)
@@ -553,6 +582,21 @@
 			(assert (idioma))
       )
 
+			(defrule exists_solution
+				(compv $?)
+				=>
+				(if (and (member$ books (get-deftemplate-list)) (eval "(any-factp ((?f books)) TRUE)"))
+				then
+				(bind $?l (find-all-facts ((?f books)) TRUE))
+				;(printout t (length$ ?l) crlf)
+				;(printout t ?l crlf)
+				(if (< (length$ ?l) 3) then
+				(printout t "Sorry but we don't have any existence of the book that you're looking for" crlf)
+				else
+				(assert(initial2)))
+				else
+				(printout t "Sorry but we don't have any existence of the book that you're looking for" crlf)))
+
 
 		; NARRATIVE ACTION AND SETTING MEDIAVAL -> ADVENTURE, EPIC, MAGIC, SWORD_AND_SORCERY
 		; NARRATIVE DEVELOPMENT AND SETTING MEDIAVAL -> FABULA, ADVENTURE, MAGIC,Dark
@@ -573,7 +617,7 @@
 					 (assert (solution_abs (id Superheroes Cyberpunk Science+Fiction Epic)))
 					 else
 					 (assert (solution_abs (id Dark Romantic Spooky Cyberpunk))))
-				)(assert (initial2)))
+				)(assert (compv)))
 
 		; 0 <= Nº OF BOOKS <= 5 -> BEGINNER
 		; 6 <= Nº OF BOOKS <= 15 -> AMATEUR
