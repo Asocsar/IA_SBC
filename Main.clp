@@ -127,14 +127,7 @@
 (deftemplate books (slot name (type STRING)) (slot puntuaje (type INTEGER) (default 0)))
 (deftemplate likes (slot id (type SYMBOL)))
 (deftemplate solution_abs (multislot id (type SYMBOL)))
-(deftemplate age (slot age (type INTEGER )))
-(deftemplate nbooks (slot num (type INTEGER)))
-(deftemplate nhours (slot num (type INTEGER)))
 (deftemplate npages (slot num (type INTEGER)))
-(deftemplate setting (slot id (type SYMBOL)))
-(deftemplate narrative (slot id (type SYMBOL)))
-(deftemplate nationality (slot id (type SYMBOL)))
-(deftemplate writers (multislot name (type SYMBOL)))
 
 
 
@@ -206,7 +199,7 @@
 	 (assert (difficultad))
 	 )
 
-(defrule puntuaje_genero ""
+(defrule abstract_solution ""
 	 (declare (salience 99))
 	 ?i <- (object (Title ?title))
 	 ?j <- (solution_abs (id $?e))
@@ -423,7 +416,7 @@
 	(while (<= ?i 3)
 	do
 	(printout t ?i)
-	(printout t " ")
+	(printout t ". ")
 	(if (<= ?k (length$ ?t)) then (printout t (nth$ ?k ?t) crlf))
 	(if (> ?k (length$ ?t)) then (printout t (nth$ (- ?k (length$ ?t)) ?tit) crlf))
 	(bind ?k (+ 1 ?k))
@@ -462,7 +455,6 @@
 			(initial2 $?)
 			=>
 			(bind ?response (ask-integer "How old are you? (INTEGER NUMBER) " 5 120))
-			(assert (age (age ?response)))
 			(if (and (>= ?response 5) (<= ?response 17)) then
 				(assert(likes (id Young)))
 			)
@@ -482,7 +474,6 @@
 			(initial2 $?)
 			=>
 			(bind ?response (ask-integer "How many hours do you read per week? (INTEGER NUMBER) " 0  168))
-			(assert (nhours (num ?response)))
 			(if (and (>= ?response 0) (<= ?response 2)) then
 				(assert(likes (id Ocasionally)))
 			)
@@ -572,8 +563,6 @@
 				=>
 				(bind ?response1 (ask-question "What type of setting do you prefer on books, medieval/fantasy or modern/urban? (Medieval/Urban) " Medieval Urban))
 				(bind ?response2 (ask-question "What do you prefer in a story, a lot of action or more character and world development? (Action/Development)" Action Development ))
-				(assert (setting (id ?response1)))
-				(assert (narrative (id ?response2)))
         (if (eq ?response1 Medieval) then
 					(if (eq ?response2 Action) then
 						(assert (solution_abs (id Adventure Epic Magic Sword_and_Sorcery)))
@@ -595,7 +584,6 @@
 			(initial2 $?)
 			=>
 			(bind ?response (ask-integer "How many books have you read? (INTEGER NUMBER) " 0 100))
-			(assert (nbooks (num ?response)))
 			(if (and (>= ?response 0) (<= ?response 5)) then
 				(assert(likes (id Beginner)))
 			)
