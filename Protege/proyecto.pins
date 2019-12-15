@@ -1,4 +1,4 @@
-; Thu Dec 12 21:40:43 CET 2019
+; Sun Dec 15 18:07:52 CET 2019
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -395,9 +395,7 @@
 	(Pages 158)
 	(Popularity Popular)
 	(Title "Rod planet")
-	(Writer
-		[proyecto_Class20028]
-		[proyecto_Class20030])
+	(Writer [proyecto_Class20030])
 	(Year 1970))
 
 ([proyecto_Class20057] of  Fabula
@@ -406,9 +404,7 @@
 	(Pages 240)
 	(Popularity Non-Popular)
 	(Title "Las 48 fabulas del emperador")
-	(Writer
-		[proyecto_Class20017]
-		[proyecto_Class20016])
+	(Writer [proyecto_Class20017])
 	(Year 2019))
 
 ([proyecto_Class20058] of  Fabula
