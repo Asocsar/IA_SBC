@@ -386,40 +386,13 @@
 	(assert (books (name ?title) ) ) )
 
 
-	;(deftemplate prb_lan (multislot mop (type SYMBOL)))
-	(deftemplate prb_ty (multislot mop (type SYMBOL)))
 
-(defrule probando
-	(declare (salience 2000))
-	(prueba $?)
-	?o <- (object (Title ?tit) (Writer ?w) (Year ?y) (Pages ?pag))
-	?p <- (object (name ?w) (Nationality ?nat))
-	;(prb_lan (mop $?v1))
-	(prb_ty (mop $?v2))
-	;(test (< ?y 2000))
-	;(test (or (not (member ?nat ?v1)) (not (member (type ?o) ?v2))))
-	=>
-	;(printout t ?tit crlf)
-	;(printout t (type ?o) crlf)
-	;(printout t ?y crlf)
-	(if (or (not (> ?pag 250)) (not (member (type ?o) ?v2))) then
-	;(printout t "SI" crlf)
-	(send ?o delete)
-	;else
-	;(printout t "NO" crlf)
-	)
-	;else
-	;(if (not (member ?nat ?v1) ) then (send ?o delete)) )
-	;(send ?p delete)
-	(assert (initial1)))
 
 (defrule system-banner ""
 	(not (initial ?))
   =>
   (load-instances "Instancies.pins")
-  (assert (prueba))
-	;(assert (prb_lan (mop Fabula Romantic Science+Fiction)))
-	(assert (prb_ty (mop Magic Cyberpunk Spooky)))
+  (assert (initial1))
   (assert (stop_aut (st "none")))
   (assert (stop_gen (st "none")))
 	(assert (stop_pag (st "none")))
