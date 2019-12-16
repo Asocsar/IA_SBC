@@ -1,0 +1,515 @@
+; Sun Dec 15 18:07:52 CET 2019
+; 
+;+ (version "3.5")
+;+ (build "Build 663")
+
+([proyecto_Class0] of  Epic
+
+	(Language Medium)
+	(Pages 1007)
+	(Popularity Best_Seller)
+	(Title "The way of Kings")
+	(Writer [proyecto_Class20010])
+	(Year 2010))
+
+([proyecto_Class1] of  Epic
+
+	(Language Hard)
+	(Pages 694)
+	(Popularity Best_Seller)
+	(Title "A Game of Thrones")
+	(Writer [proyecto_Class20011])
+	(Year 1996))
+
+
+
+([proyecto_Class10005] of  Epic
+
+	(Language Hard)
+	(Pages 423)
+	(Popularity Best_Seller)
+	(Title "The Fellowship of the Ring")
+	(Writer [proyecto_Class20013])
+	(Year 1954))
+
+
+([proyecto_Class2] of  Epic
+
+	(Language Easy)
+	(Pages 541)
+	(Popularity Popular)
+	(Title "Mistborn: The Final Empire")
+	(Writer [proyecto_Class20010])
+	(Year 2006))
+
+([proyecto_Class20000] of  Autor
+
+	(Difficulty Hard)
+	(LIbro [proyecto_Class10000])
+	(Name "Clive Staples")
+	(Nationality Norway)
+	(Surname "Lewis"))
+
+([proyecto_Class20002] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class10001])
+	(Name "Barry")
+	(Nationality EU)
+	(Surname "Hughart"))
+
+([proyecto_Class20006] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class20063])
+	(Name "Jules")
+	(Nationality France)
+	(Surname "Verne"))
+
+([proyecto_Class20007] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class20064])
+	(Name "Arturo Perez")
+	(Nationality Spain)
+	(Surname "Reverte"))
+
+([proyecto_Class20008] of  Autor
+
+	(Difficulty Hard)
+	(LIbro [proyecto_Class20051])
+	(Name "Howard Phillips")
+	(Nationality EU)
+	(Surname "Lovecraft"))
+
+([proyecto_Class20009] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class20052])
+	(Name "Sabina")
+	(Nationality EU)
+	(Surname "Murray"))
+
+([proyecto_Class20010] of  Autor
+
+	(Difficulty Medium)
+	(LIbro
+		[proyecto_Class0]
+		[proyecto_Class2])
+	(Name "Brandon")
+	(Nationality EU)
+	(Surname "Sanderson"))
+
+([proyecto_Class20011] of  Autor
+
+	(Difficulty Hard)
+	(LIbro [proyecto_Class1])
+	(Name "George Raymond Richard")
+	(Nationality EU)
+	(Surname "Martin"))
+
+([proyecto_Class20012] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class10004])
+	(Name "Paul")
+	(Nationality Norway)
+	(Surname "Kearney"))
+
+([proyecto_Class20013] of  Autor
+
+	(Difficulty Hard)
+	(LIbro [proyecto_Class10005])
+	(Name "John Ronald Reuel")
+	(Nationality UK)
+	(Surname "Tolkien"))
+
+([proyecto_Class20015] of  Autor
+
+	(Difficulty Hard)
+	(LIbro [proyecto_Class3])
+	(Name "Terry")
+	(Nationality EU)
+	(Surname "Brooks"))
+
+([proyecto_Class20016] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class20057])
+	(Name "Vicente J Valera Gomez de la")
+	(Nationality Spain)
+	(Surname "Pena"))
+
+([proyecto_Class20017] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class20057])
+	(Name "Juan Copete")
+	(Nationality Spain)
+	(Surname "Fernandez"))
+
+([proyecto_Class20018] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class20058])
+	(Name "Esopo")
+	(Nationality Greece)
+	(Surname "Aesopus"))
+
+([proyecto_Class20019] of  Autor
+
+	(Difficulty Easy)
+	(LIbro
+		[proyecto_Class20059]
+		[proyecto_Class40012])
+	(Name "George")
+	(Nationality UK)
+	(Surname "Orwell"))
+
+([proyecto_Class20020] of  Autor
+
+	(Difficulty Hard)
+	(LIbro [proyecto_Class20060])
+	(Name "J. K.")
+	(Nationality EU)
+	(Surname "Rowling"))
+
+([proyecto_Class20021] of  Autor
+
+	(Difficulty Hard)
+	(LIbro [proyecto_Class20061])
+	(Name "Gabriel Garcia")
+	(Nationality Spain)
+	(Surname "Marquez"))
+
+([proyecto_Class20022] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class20062])
+	(Name "Madeline")
+	(Nationality EU)
+	(Surname "Miller"))
+
+([proyecto_Class20023] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class10003])
+	(Name "Dave")
+	(Nationality UK)
+	(Surname "Duncan"))
+
+([proyecto_Class20024] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class20067])
+	(Name "Jane")
+	(Nationality UK)
+	(Surname "Austen"))
+
+([proyecto_Class20025] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class20068])
+	(Name "Elisabet")
+	(Nationality Spain)
+	(Surname "Benavent"))
+
+([proyecto_Class20026] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class20069])
+	(Name "Robert James")
+	(Nationality EU)
+	(Surname "Waller"))
+
+([proyecto_Class20027] of  Autor
+
+	(Difficulty Hard)
+	(LIbro [proyecto_Class20054])
+	(Name "Pierce")
+	(Nationality EU)
+	(Surname "Brown"))
+
+([proyecto_Class20028] of  Autor
+
+	(Difficulty Easy)
+	(LIbro
+		[proyecto_Class20055]
+		[proyecto_Class20056])
+	(Name "Jon")
+	(Nationality Norway)
+	(Surname "Bing"))
+
+([proyecto_Class20029] of  Autor
+
+	(Difficulty Hard)
+	(LIbro
+		[proyecto_Class10007]
+		[proyecto_Class10006]
+		[proyecto_Class10008])
+	(Name "Stephen")
+	(Nationality EU)
+	(Surname "King"))
+
+([proyecto_Class20030] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class20056])
+	(Name "Tor Aage")
+	(Nationality Norway)
+	(Surname "Bringsvaard"))
+
+([proyecto_Class20031] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class10002])
+	(Name "Fritz")
+	(Nationality EU)
+	(Surname "Leiber"))
+
+([proyecto_Class20032] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class20070])
+	(Name "Christopher")
+	(Nationality EU)
+	(Surname "Paolini"))
+
+([proyecto_Class20051] of  Dark
+
+	(Language Hard)
+	(Pages 643)
+	(Popularity Popular)
+	(Title "The Call of Cthulhu")
+	(Writer [proyecto_Class20008])
+	(Year 1928))
+
+([proyecto_Class20052] of  Dark
+
+	(Language Medium)
+	(Pages 304)
+	(Popularity Normal)
+	(Title "A carnivores inquiry")
+	(Writer [proyecto_Class20009])
+	(Year 2004))
+
+([proyecto_Class20053] of  Dark
+
+	(Language Medium)
+	(Pages 192)
+	(Popularity Normal)
+	(Title "The seven deadly Sins")
+	(Writer [proyecto_Class40015])
+	(Year 2010))
+
+([proyecto_Class3] of  Epic
+
+	(Language Hard)
+	(Pages 726)
+	(Popularity Non-Popular)
+	(Title "Sword of Shannara")
+	(Writer [proyecto_Class20015])
+	(Year 1977))
+
+([proyecto_Class30000] of  Autor
+
+	(Difficulty Easy)
+	(LIbro
+		[proyecto_Class30001]
+		[proyecto_Class60008]
+		[proyecto_Class60009])
+	(Name "Herbert George")
+	(Nationality UK)
+	(Surname "Wells"))
+
+([proyecto_Class40000] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class40001])
+	(Name "Hajime")
+	(Nationality Japan)
+	(Surname "Segawa"))
+
+([proyecto_Class40001] of  Superheroes
+
+	(Language Easy)
+	(Pages 388)
+	(Popularity Non-Popular)
+	(Title "Tokyo ESP")
+	(Writer [proyecto_Class40000])
+	(Year 2010))
+
+([proyecto_Class40002] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class40003])
+	(Name "Stan")
+	(Nationality EU)
+	(Surname "Lee"))
+
+([proyecto_Class40003] of  Superheroes
+
+	(Language Easy)
+	(Pages 416)
+	(Popularity Best_Seller)
+	(Title "Iron Man")
+	(Writer [proyecto_Class40002])
+	(Year 1963))
+
+([proyecto_Class40004] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class40005])
+	(Name "Kohei")
+	(Nationality Japan)
+	(Surname "Horikoshi"))
+
+([proyecto_Class40005] of  Superheroes
+
+	(Language Easy)
+	(Pages 192)
+	(Popularity Best_Seller)
+	(Title "My Hero Academia")
+	(Writer [proyecto_Class40004])
+	(Year 2014))
+
+([proyecto_Class40006] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class40007])
+	(Name "Katsuhiro")
+	(Nationality Japan)
+	(Surname "Otomo"))
+
+
+([proyecto_Class40008] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class40009])
+	(Name "Philip Kindred")
+	(Nationality EU)
+	(Surname "Dick"))
+
+([proyecto_Class40010] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class40011])
+	(Name "Rosa")
+	(Nationality Spain)
+	(Surname "Montero"))
+
+
+
+
+([proyecto_Class40013] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class40014])
+	(Name "Robert Ervin")
+	(Nationality EU)
+	(Surname "Howard"))
+
+([proyecto_Class40015] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class20053])
+	(Name "Agatha")
+	(Nationality UK)
+	(Surname "Christie"))
+
+([proyecto_Class50001] of  Epic
+
+	(Language Hard)
+	(Pages 352)
+	(Popularity Best_Seller)
+	(Title "The Two Towers")
+	(Writer [proyecto_Class20013])
+	(Year 1954))
+
+([proyecto_Class50002] of  Epic
+
+	(Language Hard)
+	(Pages 416)
+	(Popularity Best_Seller)
+	(Title "The Return of the King")
+	(Writer [proyecto_Class20013])
+	(Year 1955))
+
+
+([proyecto_Class60001] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class60002])
+	(Name "Patrick")
+	(Nationality EU)
+	(Surname "Rothfuss"))
+
+([proyecto_Class60002] of  Epic
+
+	(Language Easy)
+	(Pages 880)
+	(Popularity Critic)
+	(Title "El nombre del Viento")
+	(Writer [proyecto_Class60001])
+	(Year 2007))
+
+([proyecto_Class60003] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class60004])
+	(Name "Osamu")
+	(Nationality Japan)
+	(Surname "Dazai"))
+
+([proyecto_Class60004] of  Dark
+
+	(Language Medium)
+	(Pages 177)
+	(Popularity Critic)
+	(Title "Indigno de ser humano")
+	(Writer [proyecto_Class60003])
+	(Year 1948))
+
+([proyecto_Class60005] of  Autor
+
+	(Difficulty Hard)
+	(LIbro [proyecto_Class60006])
+	(Name "Malka")
+	(Nationality EU)
+	(Surname "Older"))
+
+
+([proyecto_Class60010] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class60011])
+	(Name "Yusuke")
+	(Nationality Japan)
+	(Surname "Murata"))
+
+([proyecto_Class60011] of  Superheroes
+
+	(Language Easy)
+	(Pages 208)
+	(Popularity Critic)
+	(Title "One punch Man")
+	(Writer [proyecto_Class60010])
+	(Year 2012))
+
+([proyecto_Class60012] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class60013])
+	(Name "Negi")
+	(Nationality Japan)
+	(Surname "Haruba"))
+
+
+([proyecto_Class60014] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class60015])
+	(Name "Akihito")
+	(Nationality Japan)
+	(Surname "Tsukushi"))
+
