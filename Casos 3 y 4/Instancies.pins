@@ -1,0 +1,161 @@
+; Sun Dec 15 18:07:52 CET 2019
+;
+;+ (version "3.5")
+;+ (build "Build 663")
+
+([proyecto_Class10003] of  Romantic
+
+	(Language Medium)
+	(Pages 307)
+	(Popularity Normal)
+	(Title "Magic Casement")
+	(Writer [proyecto_Class20023])
+	(Year 1990))
+
+
+([proyecto_Class20017] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class20057])
+	(Name "Juan Copete")
+	(Nationality Spain)
+	(Surname "Fernandez"))
+
+([proyecto_Class20023] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class10003])
+	(Name "Dave")
+	(Nationality UK)
+	(Surname "Duncan"))
+
+([proyecto_Class20024] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class20067])
+	(Name "Jane")
+	(Nationality UK)
+	(Surname "Austen"))
+
+([proyecto_Class20025] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class20068])
+	(Name "Elisabet")
+	(Nationality Spain)
+	(Surname "Benavent"))
+
+([proyecto_Class20026] of  Autor
+
+	(Difficulty Medium)
+	(LIbro [proyecto_Class20069])
+	(Name "Robert James")
+	(Nationality EU)
+	(Surname "Waller"))
+
+([proyecto_Class20027] of  Autor
+
+	(Difficulty Hard)
+	(LIbro [proyecto_Class20054])
+	(Name "Pierce")
+	(Nationality EU)
+	(Surname "Brown"))
+
+([proyecto_Class20028] of  Autor
+
+	(Difficulty Easy)
+	(LIbro
+		[proyecto_Class20055]
+		[proyecto_Class20056])
+	(Name "Jon")
+	(Nationality Norway)
+	(Surname "Bing"))
+
+([proyecto_Class20030] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class20056])
+	(Name "Tor Aage")
+	(Nationality Norway)
+	(Surname "Bringsvaard"))
+
+([proyecto_Class20054] of  Science+Fiction
+
+	(Language Hard)
+	(Pages 518)
+	(Popularity Popular)
+	(Title "Morning Star")
+	(Writer [proyecto_Class20027])
+	(Year 2016))
+
+([proyecto_Class20055] of  Science+Fiction
+
+	(Language Easy)
+	(Pages 155)
+	(Popularity Non-Popular)
+	(Title "Hvadata?")
+	(Writer [proyecto_Class20028])
+	(Year 1986))
+
+([proyecto_Class20056] of  Science+Fiction
+
+	(Language Easy)
+	(Pages 158)
+	(Popularity Popular)
+	(Title "Rod planet")
+	(Writer [proyecto_Class20030])
+	(Year 1970))
+
+([proyecto_Class20057] of  Fabula
+
+	(Language Easy)
+	(Pages 240)
+	(Popularity Non-Popular)
+	(Title "Las 48 fabulas del emperador")
+	(Writer [proyecto_Class20017])
+	(Year 2019))
+
+([proyecto_Class20067] of  Romantic
+
+	(Language Medium)
+	(Pages 544)
+	(Popularity Popular)
+	(Title "Orgullo y prejuicio")
+	(Writer [proyecto_Class20024])
+	(Year 2006))
+
+([proyecto_Class20068] of  Romantic
+
+	(Language Medium)
+	(Pages 512)
+	(Popularity Normal)
+	(Title "Toda la verdad de mis mentiras")
+	(Writer [proyecto_Class20025])
+	(Year 2019))
+
+([proyecto_Class20069] of  Romantic
+
+	(Language Medium)
+	(Pages 208)
+	(Popularity Popular)
+	(Title "Los puentes de Madison")
+	(Writer [proyecto_Class20026])
+	(Year 1995))
+
+
+([proyecto_Class60012] of  Autor
+
+	(Difficulty Easy)
+	(LIbro [proyecto_Class60013])
+	(Name "Negi")
+	(Nationality Japan)
+	(Surname "Haruba"))
+
+([proyecto_Class60013] of  Romantic
+
+	(Language Medium)
+	(Pages 192)
+	(Popularity Critic)
+	(Title "Go-toubun-no-hanayome")
+	(Writer [proyecto_Class60012])
+	(Year 2017))
